@@ -1,0 +1,101 @@
+<div class="text-center body">
+  <main class="form-signin p-3" *ngIf="isLogin">
+    <form [formGroup]="loginFormData" (ngSubmit)="signIn()">
+      <img class="mb-4" src="../assets/logo.png" alt="" width="100%" />
+      <h1 class="h3 mb-3 fw-normal">Login</h1>
+
+      <div class="form-floating mb-3">
+        <mat-form-field appearance="outline" style="width: 100%">
+          <mat-label>Usuário</mat-label>
+          <input
+            matInput
+            placeholder="Usuário"
+            type="text"
+            formControlName="username"
+          />
+          <mat-error
+            *ngIf="loginFormData.controls['username'].hasError('required')"
+          >
+            Usuário é obrigatório
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="form-floating mb-3">
+        <mat-form-field appearance="outline" style="width: 100%">
+          <mat-label>Senha</mat-label>
+          <input
+            matInput
+            placeholder="Senha"
+            [type]="hide ? 'password' : 'text'"
+            formControlName="password"
+            autocomplete="true"
+          />
+          <mat-icon
+            class="material-icons-outlined"
+            matSuffix
+            (click)="hide = !hide"
+          >
+            {{ hide ? "visibility_off" : "visibility" }}</mat-icon
+          >
+          <mat-error
+            *ngIf="loginFormData.controls['password'].hasError('required')"
+          >
+            Senha é obrigatório
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <button mat-raised-button color="primary" type="submit" class="mb-5">
+        Entrar
+      </button>
+      <p class="mb-3 text-muted">
+        Esqueceu a senha?
+        <a color="primary" (click)="isLogin = false">clique aqui</a>
+      </p>
+    </form>
+  </main>
+
+  <!-- ESQUECEU A SENHA -->
+  <main class="form-signin p-3" *ngIf="!isLogin">
+    <form [formGroup]="forgotPasswordFormData" (ngSubmit)="forgotPassword()">
+      <img class="mb-4" src="../assets/logo.png" alt="" width="100%" />
+
+      <h1 class="h3 mb-3 fw-normal">Recuperação de Conta</h1>
+
+      <h3 class="fw-normal">
+        Se você esqueceu sua senha, digite o e-mail que você usou para se
+        registrar. Você receberá instruções de redefinição de senha.
+      </h3>
+
+      <div class="form-floating mb-3">
+        <mat-form-field appearance="outline" style="width: 100%">
+          <mat-label>Email</mat-label>
+          <input
+            matInput
+            placeholder="Email"
+            type="text"
+            formControlName="email"
+          />
+          <mat-error
+            *ngIf="
+              forgotPasswordFormData.controls['email'].hasError('required')
+            "
+          >
+            Email é obrigatório
+          </mat-error>
+          <mat-error
+            *ngIf="forgotPasswordFormData.controls['email'].hasError('email')"
+          >
+            Email inválido
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <button mat-raised-button color="primary" type="submit" class="mb-5">
+        Enviar
+      </button>
+      <p class="mb-3 text-muted">
+        Lembrou a senha?
+        <a color="primary" (click)="isLogin = true">clique aqui</a>
+      </p>
+    </form>
+  </main>
+</div>

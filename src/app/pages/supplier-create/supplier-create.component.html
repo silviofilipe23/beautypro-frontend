@@ -1,0 +1,237 @@
+<section id="supplierCreate">
+  <div class="row">
+    <div class="col-md-12 mt-4">
+      <h1>Cadastrar Fornecedor</h1>
+    </div>
+  </div>
+
+  <div class="row my-3">
+    <form [formGroup]="supplierForm" (ngSubmit)="createSupplier()">
+      <div class="row">
+        <div class="col-md-8">
+          <mat-form-field appearance="outline" style="width: 100%">
+            <mat-label>Nome</mat-label>
+            <input
+              matInput
+              placeholder="Nome do Fornecedor"
+              type="text"
+              maxlength="64"
+              formControlName="name"
+            />
+            <mat-error
+              *ngIf="supplierForm.controls['name'].hasError('required')"
+            >
+              Nome é obrigatório
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-4">
+          <mat-form-field appearance="outline" style="width: 100%">
+            <mat-label>CNPJ</mat-label>
+            <input
+              matInput
+              placeholder="Ex: 00.000.000/0000-00"
+              type="text"
+              maxlength="14"
+              formControlName="cnpj"
+            />
+            <mat-error
+              *ngIf="supplierForm.controls['cnpj'].hasError('required')"
+            >
+              CNPJ é obrigatório
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <mat-form-field appearance="outline" style="width: 100%">
+            <mat-label>E-mail</mat-label>
+            <input
+              matInput
+              placeholder="E-mail do Fornecedor"
+              type="email"
+              formControlName="email"
+            />
+            <mat-error
+              *ngIf="supplierForm.controls['email'].hasError('required')"
+            >
+              Email é obrigatório
+            </mat-error>
+            <mat-error *ngIf="supplierForm.controls['email'].hasError('email')">
+              Email inválido
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-4">
+          <mat-form-field appearance="outline" style="width: 100%">
+            <mat-label>Telefone</mat-label>
+            <input
+              matInput
+              placeholder="Telefone do Fornecedor"
+              type="text"
+              maxlength="11"
+              formControlName="phoneNumber"
+            />
+            <mat-error
+              *ngIf="supplierForm.controls['phoneNumber'].hasError('required')"
+            >
+              Telefone é obrigatório
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-4">
+          <mat-form-field appearance="outline" style="width: 100%">
+            <mat-label>CEP</mat-label>
+            <input
+              matInput
+              placeholder="CEP do Fornecedor"
+              type="text"
+              maxlength="8"
+              formControlName="cep"
+            />
+            <mat-error
+              *ngIf="supplierForm.controls['cep'].hasError('required')"
+            >
+              Telefone é obrigatório
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-8">
+          <mat-form-field appearance="outline" style="width: 100%">
+            <mat-label>Logradouro</mat-label>
+            <input
+              matInput
+              placeholder="Nome da Rua do Fornecedor"
+              type="text"
+              formControlName="street"
+            />
+            <mat-error
+              *ngIf="supplierForm.controls['street'].hasError('required')"
+            >
+              Rua é obrigatório
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-4">
+          <mat-form-field appearance="outline" style="width: 100%">
+            <mat-label>Número</mat-label>
+            <input
+              matInput
+              maxlength="10"
+              placeholder="Número do Fornecedor"
+              type="text"
+              formControlName="number"
+            />
+            <mat-error
+              *ngIf="supplierForm.controls['number'].hasError('required')"
+            >
+              Número é obrigatório
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-8">
+          <mat-form-field appearance="outline" style="width: 100%">
+            <mat-label>Complemento</mat-label>
+            <input
+              matInput
+              placeholder="Complemento"
+              type="text"
+              formControlName="complement"
+            />
+            <mat-error
+              *ngIf="supplierForm.controls['complement'].hasError('required')"
+            >
+              Complemento é obrigatório
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-4">
+          <mat-form-field appearance="outline" style="width: 100%">
+            <mat-label>Bairro</mat-label>
+            <input
+              matInput
+              placeholder="Bairro do Fornecedor"
+              type="text"
+              maxlength="32"
+              formControlName="district"
+            />
+            <mat-error
+              *ngIf="supplierForm.controls['district'].hasError('required')"
+            >
+              Bairro é obrigatório
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-4">
+          <mat-form-field appearance="outline" style="width: 100%">
+            <mat-label>Cidade</mat-label>
+            <input
+              matInput
+              placeholder="Cidade do Fornecedor"
+              type="text"
+              maxlength="32"
+              formControlName="city"
+            />
+            <mat-error
+              *ngIf="supplierForm.controls['city'].hasError('required')"
+            >
+              Cidade é obrigatório
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-4">
+          <mat-form-field appearance="outline" style="width: 100%">
+            <mat-label>Estado</mat-label>
+            <input
+              matInput
+              maxlength="32"
+              placeholder="Estado do Fornecedor"
+              type="text"
+              formControlName="state"
+            />
+            <mat-error
+              *ngIf="supplierForm.controls['state'].hasError('required')"
+            >
+              Estado é obrigatório
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row mt-3">
+        <div class="col-md-6 col-12 text-end actions-buttons mb-md-0 mb-3">
+          <button
+            mat-raised-button
+            color="warn"
+            class="me-sm-3 me-0"
+            routerLink="/Supplier-list"
+          >
+            Cancelar
+          </button>
+        </div>
+
+        <div class="col-md-6 col-12 text-md-start actions-buttons">
+          <button mat-raised-button color="primary" type="submit">
+            Salvar
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</section>

@@ -1,0 +1,21 @@
+@import "../../../my-theme.scss";
+
+#supplierCreate {
+  .actions-buttons {
+    button {
+      width: 200px;
+    }
+  }
+  textArea {
+    height: 200px;
+    resize: none;
+  }
+
+  @media screen and (max-width: 768px) {
+    .actions-buttons {
+      button {
+        width: 100%;
+      }
+    }
+  }
+}

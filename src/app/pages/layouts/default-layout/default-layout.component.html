@@ -1,0 +1,66 @@
+<mat-drawer-container class="example-container">
+  <mat-drawer #drawer mode="over">
+    <mat-list>
+      <div>
+        <mat-list-item
+          *ngFor="let menu of menus"
+          [routerLink]="menu.url"
+          style="cursor: pointer"
+          matRipple
+        >
+          <mat-icon matListItemIcon>folder</mat-icon>
+          <div matListItemTitle>{{ menu.name }}</div>
+          <mat-divider></mat-divider>
+        </mat-list-item>
+      </div>
+    </mat-list>
+  </mat-drawer>
+
+  <mat-drawer-content>
+    <mat-toolbar>
+      <img class="logo me-4" src="../../../../assets/logo.png" alt="logo" />
+      <button
+        (click)="drawer.toggle()"
+        mat-icon-button
+        color="primary"
+        class="example-icon"
+        aria-label="Example icon-button with menu icon"
+      >
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span class="example-spacer"></span>
+      <button
+        mat-icon-button
+        color="primary"
+        class="example-icon favorite-icon"
+        aria-label="Example icon-button with heart icon"
+        [matMenuTriggerFor]="menu"
+      >
+        <mat-icon>account_circle</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item disabled>
+          <mat-icon color="primary" class="material-icons-outlined"
+            >person_outline</mat-icon
+          >
+          <span>Milena Menezes</span>
+        </button>
+        <button mat-menu-item>
+          <mat-icon class="material-icons-outlined">account_box</mat-icon>
+          <span>Perfil</span>
+        </button>
+        <button mat-menu-item disabled>
+          <mat-icon class="material-icons-outlined">vpn_key</mat-icon>
+          <span>Alterar Senha</span>
+        </button>
+        <button mat-menu-item>
+          <mat-icon>logout</mat-icon>
+          <span>Sair</span>
+        </button>
+      </mat-menu>
+    </mat-toolbar>
+    <div class="container">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-drawer-content>
+</mat-drawer-container>
