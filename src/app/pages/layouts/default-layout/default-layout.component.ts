@@ -8,6 +8,11 @@ import { Component, OnInit } from '@angular/core';
 export class DefaultLayoutComponent implements OnInit {
   menus = [
     {
+      name: 'Home',
+      icon: '',
+      url: '/client-list',
+    },
+    {
       name: 'Clientes',
       icon: '',
       url: '/client-list',

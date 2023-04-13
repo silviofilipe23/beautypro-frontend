@@ -1,4 +1,4 @@
-import { AddressDTO } from './Address';
+import { Address } from './Address';
 
 export class SupplierResponse {
   data: SupplierDTO[] | undefined;
@@ -14,7 +14,7 @@ export class SupplierDTO {
   email: string | undefined;
   phoneNumber: string | undefined;
   active: boolean | undefined;
-  address: AddressDTO | undefined;
+  address: Address | undefined;
 }
 
 export class RequestSupplierDTO {

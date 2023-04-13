@@ -1,6 +1,6 @@
 import { Router } from '@angular/router';
 import { HttpResponse } from '@angular/common/http';
-import { ClientDTO, ClientResponse } from './../../models/Client';
+import { Client, ClientResponse } from './../../models/Client';
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { PaginatorService } from 'src/app/services/paginator/paginator.service';
@@ -22,9 +22,9 @@ export class ClientListComponent implements OnInit, AfterViewInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  dataSource!: MatTableDataSource<ClientDTO>;
+  dataSource!: MatTableDataSource<Client>;
   listLength = 10;
-  listClients: ClientDTO[] = [];
+  listClients: Client[] = [];
   form: FormGroup;
   displayedColumns: string[] = [
     'id',
@@ -140,7 +140,7 @@ export class ClientListComponent implements OnInit, AfterViewInit {
     this.paginatorService.setPageSize(event.pageSize);
   }
 
-  goToEditClient(item: ClientDTO) {
+  goToEditClient(item: Client) {
     this.router.navigateByUrl('/client-edit', {
       state: { editObject: item },
     });

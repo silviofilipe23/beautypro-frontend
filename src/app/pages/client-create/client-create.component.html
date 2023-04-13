@@ -8,7 +8,7 @@
   <div class="row my-3">
     <form [formGroup]="clientForm" (ngSubmit)="createClient()">
       <div class="row">
-        <div class="col-md-8">
+        <div [ngClass]="!editObject ? 'col-md-8' : 'col-md-7'">
           <mat-form-field appearance="outline" style="width: 100%">
             <mat-label>Nome</mat-label>
             <input
@@ -37,6 +37,16 @@
               CPF é obrigatório
             </mat-error>
           </mat-form-field>
+        </div>
+
+        <div class="col-md-1" *ngIf="editObject">
+          <mat-slide-toggle
+            class="mt-3"
+            formControlName="active"
+            color="primary"
+          >
+            {{ clientForm.controls["active"].value ? "Ativo" : "Inativo" }}
+          </mat-slide-toggle>
         </div>
       </div>
       <div class="row">
@@ -188,34 +198,33 @@
 
         <div class="col-md-4">
           <mat-form-field appearance="outline" style="width: 100%">
-            <mat-label>Cidade</mat-label>
-            <input
-              matInput
-              placeholder="Cidade do cliente"
-              type="text"
-              maxlength="32"
-              formControlName="city"
-            />
-            <mat-error *ngIf="clientForm.controls['city'].hasError('required')">
-              Cidade é obrigatório
+            <mat-label>Estado</mat-label>
+            <mat-select
+              formControlName="state"
+              (selectionChange)="onChangeState($any($event))"
+            >
+              <mat-option *ngFor="let state of states" [value]="state">
+                {{ state.name }}
+              </mat-option>
+            </mat-select>
+            <mat-error
+              *ngIf="clientForm.controls['state'].hasError('required')"
+            >
+              Estado é obrigatório
             </mat-error>
           </mat-form-field>
         </div>
 
         <div class="col-md-4">
           <mat-form-field appearance="outline" style="width: 100%">
-            <mat-label>Estado</mat-label>
-            <input
-              matInput
-              maxlength="32"
-              placeholder="Estado do cliente"
-              type="text"
-              formControlName="state"
-            />
-            <mat-error
-              *ngIf="clientForm.controls['state'].hasError('required')"
-            >
-              Estado é obrigatório
+            <mat-label>Cidade</mat-label>
+            <mat-select formControlName="city">
+              <mat-option *ngFor="let city of cities" [value]="city">
+                {{ city.name }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="clientForm.controls['city'].hasError('required')">
+              Cidade é obrigatório
             </mat-error>
           </mat-form-field>
         </div>

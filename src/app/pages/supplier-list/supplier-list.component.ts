@@ -9,6 +9,12 @@ import { MatPaginator } from '@angular/material/paginator';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { catchError, map, merge, startWith, switchMap } from 'rxjs';
+import { HttpResponse } from '@angular/common/http';
+import {
+  MatSnackBar,
+  MatSnackBarHorizontalPosition,
+  MatSnackBarVerticalPosition,
+} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-supplier-list',
@@ -21,6 +27,8 @@ export class SupplierListComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   dataSource!: MatTableDataSource<SupplierDTO>;
+  horizontalPosition: MatSnackBarHorizontalPosition = 'right';
+  verticalPosition: MatSnackBarVerticalPosition = 'top';
   listLength = 10;
   listSuppliers: SupplierDTO[] = [];
   form: FormGroup;
@@ -38,7 +46,8 @@ export class SupplierListComponent implements OnInit {
     private paginatorService: PaginatorService,
     private service: SupplierService,
     private fb: FormBuilder,
-    private router: Router
+    private router: Router,
+    private _snackBar: MatSnackBar
   ) {
     this.form = this.fb.group({
       search: new FormControl(''),
@@ -121,6 +130,32 @@ export class SupplierListComponent implements OnInit {
           this.blockUI.stop();
         },
       });
+  }
+
+  deleteSupplier(supplier: SupplierDTO) {
+    this.blockUI.start();
+
+    this.service.deleteSupplier(supplier.id).subscribe({
+      next: (response: HttpResponse<any>) => {
+        this._snackBar.open('Fornecedor excluído com sucesso!', 'Fechar', {
+          duration: 5000,
+          horizontalPosition: this.horizontalPosition,
+          verticalPosition: this.verticalPosition,
+          panelClass: ['error-snackbar'],
+        });
+        this.blockUI.stop();
+        this.getListSearch();
+      },
+      error: (err) => {
+        this.blockUI.stop();
+        this._snackBar.open(err.error?.message, 'Fechar', {
+          duration: 5000,
+          horizontalPosition: this.horizontalPosition,
+          verticalPosition: this.verticalPosition,
+          panelClass: ['error-snackbar'],
+        });
+      },
+    });
   }
 
   onPaginatorChange(event: any) {

@@ -78,7 +78,7 @@ export class SupplierCreateComponent implements OnInit {
         [Validators.maxLength(32)]
       ),
       state: new FormControl(
-        this.editObject ? this.editObject.address?.state : '',
+        this.editObject ? this.editObject.address?.city?.uf : '',
         [Validators.maxLength(32)]
       ),
       cep: new FormControl(

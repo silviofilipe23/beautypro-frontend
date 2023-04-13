@@ -2,23 +2,38 @@
   <mat-drawer #drawer mode="over">
     <mat-list>
       <div>
-        <mat-list-item
-          *ngFor="let menu of menus"
-          [routerLink]="menu.url"
-          style="cursor: pointer"
-          matRipple
-        >
-          <mat-icon matListItemIcon>folder</mat-icon>
-          <div matListItemTitle>{{ menu.name }}</div>
-          <mat-divider></mat-divider>
-        </mat-list-item>
+        <div class="logo-sidenav">
+          <img
+            class=""
+            src="../../../../assets/logo1.png"
+            alt="logo"
+            routerLink="/home"
+          />
+        </div>
+        <div class="mt-5">
+          <mat-list-item
+            *ngFor="let menu of menus"
+            [routerLink]="menu.url"
+            style="cursor: pointer"
+            matRipple
+          >
+            <mat-icon matListItemIcon>folder</mat-icon>
+            <div matListItemTitle>{{ menu.name }}</div>
+            <mat-divider></mat-divider>
+          </mat-list-item>
+        </div>
       </div>
     </mat-list>
   </mat-drawer>
 
   <mat-drawer-content>
     <mat-toolbar>
-      <img class="logo me-4" src="../../../../assets/logo.png" alt="logo" />
+      <img
+        class="logo me-4"
+        src="../../../../assets/logoHome.png"
+        alt="logo"
+        routerLink="/home"
+      />
       <button
         (click)="drawer.toggle()"
         mat-icon-button

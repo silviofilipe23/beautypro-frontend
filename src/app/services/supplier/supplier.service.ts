@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs';
 import { RequestSupplierDTO } from './../../models/Supplier';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
@@ -9,7 +10,7 @@ import { environment } from 'src/environments/environment';
 export class SupplierService {
   constructor(private http: HttpClient) {}
 
-  createSupplier(newSupplier: RequestSupplierDTO) {
+  createSupplier(newSupplier: RequestSupplierDTO): Observable<any> {
     return this.http.post<any>(
       `${environment.urlBase}/suppliers`,
       newSupplier,
@@ -29,7 +30,11 @@ export class SupplierService {
   //   );
   // }
 
-  listSupplier(page: number, size: number, name: string | null) {
+  listSupplier(
+    page: number,
+    size: number,
+    name: string | null
+  ): Observable<any> {
     return this.http.get<any>(
       `${environment.urlBase}/suppliers?` +
         (page !== null ? `page=${page}` : '') +
@@ -37,5 +42,11 @@ export class SupplierService {
         (name !== null ? `&name=${name}` : ''),
       { observe: 'response' }
     );
+  }
+
+  deleteSupplier(id: number | undefined): Observable<any> {
+    return this.http.delete<any>(`${environment.urlBase}/suppliers/${id}`, {
+      observe: 'response',
+    });
   }
 }

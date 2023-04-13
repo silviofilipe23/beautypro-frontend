@@ -11,11 +11,21 @@ mat-drawer-content {
 
 mat-drawer {
   width: 280px;
+
+  .logo-sidenav {
+    padding: 0px 15px;
+    img {
+      cursor: pointer;
+
+      width: 100%;
+    }
+  }
 }
 
 .mat-toolbar {
   .logo {
     height: 50px;
+    cursor: pointer;
   }
   .example-spacer {
     flex: 1 1 auto;
