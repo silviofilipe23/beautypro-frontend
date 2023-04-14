@@ -8,13 +8,13 @@ import { environment } from 'src/environments/environment';
 export class ProductService {
   constructor(private http: HttpClient) {}
 
-  // createProduct(newProduct: RequestProductDTO) {
+  // createProduct(newProduct: RequestProduct) {
   //   return this.http.post<any>(`${environment.urlBase}/product`, newProduct, {
   //     observe: 'response',
   //   });
   // }
 
-  // updateProduct(id: number, editProduct: RequestProductDTO) {
+  // updateProduct(id: number, editProduct: RequestProduct) {
   //   return this.http.put<any>(
   //     `${environment.urlBase}/Product/${id}`,
   //     editProduct,

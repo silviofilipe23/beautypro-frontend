@@ -13,6 +13,11 @@ export class DefaultLayoutComponent implements OnInit {
       url: '/client-list',
     },
     {
+      name: 'Usuários',
+      icon: '',
+      url: '/user-list',
+    },
+    {
       name: 'Clientes',
       icon: '',
       url: '/client-list',

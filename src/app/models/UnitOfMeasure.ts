@@ -1,17 +1,17 @@
 // export class ProductResponse {
-//   data: ProductDTO[] | undefined;
+//   data: Product[] | undefined;
 //   total: number | undefined;
 //   pages: number | undefined;
 //   size: number | undefined;
 // }
 
-export class UnitOfMeasureDTO {
+export class UnitOfMeasure {
   id: number | undefined;
   description: string | undefined;
 }
 
-// export class RequestProductDTO {
-//   public constructor(init?: Partial<RequestProductDTO>) {
+// export class RequestProduct {
+//   public constructor(init?: Partial<RequestProduct>) {
 //     Object.assign(this, init);
 //   }
 

@@ -6,7 +6,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { catchError, map, merge, startWith, switchMap } from 'rxjs';
-import { ProductDTO } from 'src/app/models/Product';
+import { Product } from 'src/app/models/Product';
 import { ProductService } from 'src/app/services/product/product.service';
 
 @Component({
@@ -19,9 +19,9 @@ export class ProductListComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  dataSource!: MatTableDataSource<ProductDTO>;
+  dataSource!: MatTableDataSource<Product>;
   listLength = 10;
-  listProducts: ProductDTO[] = [];
+  listProducts: Product[] = [];
   form: FormGroup;
   displayedColumns: string[] = [
     'id',
@@ -127,7 +127,7 @@ export class ProductListComponent implements OnInit {
     this.paginatorService.setPageSize(event.pageSize);
   }
 
-  goToEditProduct(item: ProductDTO) {
+  goToEditProduct(item: Product) {
     this.router.navigateByUrl('/Product-edit', {
       state: { editObject: item },
     });

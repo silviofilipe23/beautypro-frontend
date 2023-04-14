@@ -11,6 +11,8 @@ import { LoginLayoutComponent } from './pages/layouts/login-layout/login-layout.
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
+import { UserListComponent } from './pages/user-list/user-list.component';
+import { UserCreateComponent } from './pages/user-create/user-create.component';
 
 const routes: Routes = [
   {
@@ -45,12 +47,22 @@ const routes: Routes = [
     ],
   },
   {
-    path: 'users',
+    path: 'user-create',
     component: DefaultLayoutComponent,
     children: [
       {
         path: '',
-        component: UsersComponent,
+        component: UserCreateComponent,
+      },
+    ],
+  },
+  {
+    path: 'user-list',
+    component: DefaultLayoutComponent,
+    children: [
+      {
+        path: '',
+        component: UserListComponent,
       },
     ],
   },

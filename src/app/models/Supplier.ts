@@ -1,13 +1,13 @@
 import { Address } from './Address';
 
 export class SupplierResponse {
-  data: SupplierDTO[] | undefined;
+  data: Supplier[] | undefined;
   total: number | undefined;
   pages: number | undefined;
   size: number | undefined;
 }
 
-export class SupplierDTO {
+export class Supplier {
   id: number | undefined;
   name: string | undefined;
   cnpj: string | undefined;
@@ -17,8 +17,8 @@ export class SupplierDTO {
   address: Address | undefined;
 }
 
-export class RequestSupplierDTO {
-  public constructor(init?: Partial<RequestSupplierDTO>) {
+export class RequestSupplier {
+  public constructor(init?: Partial<RequestSupplier>) {
     Object.assign(this, init);
   }
 

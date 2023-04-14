@@ -50,6 +50,8 @@ import { ClientCreateComponent } from './pages/client-create/client-create.compo
 import { ProductListComponent } from './pages/product-list/product-list.component';
 import { SupplierListComponent } from './pages/supplier-list/supplier-list.component';
 import { SupplierCreateComponent } from './pages/supplier-create/supplier-create.component';
+import { UserListComponent } from './pages/user-list/user-list.component';
+import { UserCreateComponent } from './pages/user-create/user-create.component';
 
 @NgModule({
   declarations: [
@@ -65,6 +67,8 @@ import { SupplierCreateComponent } from './pages/supplier-create/supplier-create
     ProductListComponent,
     SupplierListComponent,
     SupplierCreateComponent,
+    UserListComponent,
+    UserCreateComponent,
   ],
   imports: [
     BrowserModule,

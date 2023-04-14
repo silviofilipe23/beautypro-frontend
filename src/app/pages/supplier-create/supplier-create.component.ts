@@ -1,5 +1,5 @@
 import { SupplierService } from './../../services/supplier/supplier.service';
-import { RequestSupplierDTO, SupplierDTO } from './../../models/Supplier';
+import { RequestSupplier, Supplier } from './../../models/Supplier';
 import { HttpResponse } from '@angular/common/http';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { Router } from '@angular/router';
@@ -24,7 +24,7 @@ export class SupplierCreateComponent implements OnInit {
   @BlockUI() blockUI!: NgBlockUI;
 
   supplierForm!: FormGroup;
-  editObject!: SupplierDTO;
+  editObject!: Supplier;
   horizontalPosition: MatSnackBarHorizontalPosition = 'right';
   verticalPosition: MatSnackBarVerticalPosition = 'top';
 
@@ -93,7 +93,7 @@ export class SupplierCreateComponent implements OnInit {
   createSupplier() {
     this.blockUI.start();
 
-    const requestSupplier = new RequestSupplierDTO(this.supplierForm.value);
+    const requestSupplier = new RequestSupplier(this.supplierForm.value);
 
     if (this.editObject) {
       this.editSupplier(this.editObject.id!, requestSupplier);
@@ -102,7 +102,7 @@ export class SupplierCreateComponent implements OnInit {
     }
   }
 
-  editSupplier(id: number, requestSupplier: RequestSupplierDTO) {
+  editSupplier(id: number, requestSupplier: RequestSupplier) {
     // this.service.updateSupplier(id, requestSupplier).subscribe({
     //   next: (response: any) => {
     //     this.blockUI.stop();
@@ -128,7 +128,7 @@ export class SupplierCreateComponent implements OnInit {
     // });
   }
 
-  createNewSupplier(requestSupplier: RequestSupplierDTO) {
+  createNewSupplier(requestSupplier: RequestSupplier) {
     this.service.createSupplier(requestSupplier).subscribe({
       next: (response: any) => {
         this.blockUI.stop();
