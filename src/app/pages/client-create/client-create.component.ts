@@ -1,4 +1,4 @@
-import { ERole } from './../../models/ERole';
+import { Observable } from 'rxjs';
 import { HttpResponse } from '@angular/common/http';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { Router } from '@angular/router';
@@ -14,14 +14,19 @@ import {
   MatSnackBarHorizontalPosition,
   MatSnackBarVerticalPosition,
 } from '@angular/material/snack-bar';
-import { AfterContentInit, Component, OnInit } from '@angular/core';
-import { CepService } from 'src/app/services/cep/cep.service';
-import { PhoneNumber } from 'src/app/utils/format-phonenumber';
-import { PhoneInputComponent } from 'src/app/utils/formatePhone';
+import {
+  AfterContentInit,
+  Component,
+  ElementRef,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { StatesService } from 'src/app/services/states/states.service';
 import { Client } from 'src/app/models/Client';
 import { Address, City, State } from 'src/app/models/Address';
-import { Role } from 'src/app/models/Role';
+import { map, startWith } from 'rxjs/operators';
+import { MatChipInputEvent } from '@angular/material/chips';
+import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 
 @Component({
   selector: 'app-client-create',
@@ -38,10 +43,43 @@ export class ClientCreateComponent implements OnInit, AfterContentInit {
   horizontalPosition: MatSnackBarHorizontalPosition = 'right';
   verticalPosition: MatSnackBarVerticalPosition = 'top';
 
+  // separatorKeysCodes: number[] = [ENTER, COMMA];
+  anamneseCtrl = new FormControl();
+  filteredanamneses: Observable<string[]>;
+  anamneses: string[] = [];
+  allanamneses: string[] = [
+    'Alergia',
+    'Cirurgia',
+    'Cicatrizantes/Face',
+    'Neoplasia',
+    'Problema ocular',
+    'Verrugas/Face',
+    'Depressão',
+    'H.I.V',
+    'Diabetes',
+    'Gestante ou lactante',
+    'Herpes',
+    'Hipertensão',
+    'Botox',
+    'Medicação',
+    'Preenchedor',
+    'Uso de ácidos cosméticos',
+    'Queloides',
+    'Câncer',
+    'Alopecia',
+    'Psoríase',
+    'Epilepsia',
+    'Doenças Cardíacas',
+    'Lúpus',
+  ];
+
+  @ViewChild('anamneseInput') anamneseInput:
+    | ElementRef<HTMLInputElement>
+    | undefined;
+
   constructor(
     private fb: FormBuilder,
     private service: ClientService,
-    private serviceCep: CepService,
     private statesService: StatesService,
     private _snackBar: MatSnackBar,
     private router: Router
@@ -57,6 +95,10 @@ export class ClientCreateComponent implements OnInit, AfterContentInit {
         Validators.required,
         Validators.maxLength(128),
       ]),
+      dateOfBirth: new FormControl(
+        this.editObject ? this.editObject.dateOfBirth : '',
+        [Validators.required, Validators.maxLength(128)]
+      ),
       cpf: new FormControl(this.editObject ? this.editObject.cpf : '', [
         Validators.required,
         Validators.maxLength(11),
@@ -68,21 +110,28 @@ export class ClientCreateComponent implements OnInit, AfterContentInit {
       email: new FormControl(this.editObject ? this.editObject.email : '', [
         Validators.email,
         Validators.maxLength(64),
-        Validators.required,
       ]),
-
       phoneNumber: new FormControl(
         this.editObject ? this.editObject.phoneNumber : '',
         [Validators.required, Validators.maxLength(11)]
       ),
       observations: new FormControl(
-        this.editObject ? this.editObject.observations : '',
-        []
+        this.editObject ? this.editObject.observations : ''
       ),
-      active: new FormControl(
-        this.editObject ? this.editObject.active : null,
-        []
+      active: new FormControl(this.editObject ? this.editObject.active : null),
+      nameResponsible: new FormControl(
+        this.editObject ? this.editObject.nameResponsible : ''
       ),
+      cpfResponsible: new FormControl(
+        this.editObject ? this.editObject.cpfResponsible : ''
+      ),
+      rgResponsible: new FormControl(
+        this.editObject ? this.editObject.rgResponsible : ''
+      ),
+      anamnese: new FormControl(
+        this.editObject ? this.editObject.anamnese : ''
+      ),
+
       number: new FormControl(
         this.editObject ? this.editObject.address?.number : '',
         [Validators.maxLength(10)]
@@ -109,6 +158,13 @@ export class ClientCreateComponent implements OnInit, AfterContentInit {
         [Validators.maxLength(8)]
       ),
     });
+
+    this.filteredanamneses = this.anamneseCtrl.valueChanges.pipe(
+      startWith(null),
+      map((anamnese: string | null) =>
+        anamnese ? this._filter(anamnese) : this.allanamneses.slice()
+      )
+    );
   }
 
   ngAfterContentInit(): void {}
@@ -117,7 +173,53 @@ export class ClientCreateComponent implements OnInit, AfterContentInit {
     this.getStates();
   }
 
+  add(event: MatChipInputEvent): void {
+    const value = (event.value || '').trim();
+
+    // Add our anamnese
+    if (value) {
+      this.anamneses.push(value);
+    }
+
+    // Clear the input value
+    event.chipInput!.clear();
+
+    this.anamneseCtrl.setValue(null);
+  }
+
+  remove(anamnese: string): void {
+    const index = this.anamneses.indexOf(anamnese);
+
+    if (index >= 0) {
+      this.anamneses.splice(index, 1);
+    }
+  }
+
+  selected(event: MatAutocompleteSelectedEvent): void {
+    this.anamneses.push(event.option.viewValue);
+    this.anamneseInput!.nativeElement.value = '';
+    this.anamneseCtrl.setValue(null);
+  }
+
+  private _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
+
+    return this.allanamneses.filter((anamnese) =>
+      anamnese.toLowerCase().includes(filterValue)
+    );
+  }
+
+  createStringAnamnese(array: string[]) {
+    let string = '';
+    for (let i = 0; i < array.length; i++) {
+      string += `${array[i]},`;
+    }
+    return string;
+  }
+
   createClient() {
+    console.log(this.clientForm.value);
+
     if (this.clientForm.valid) {
       this.blockUI.start();
 
@@ -129,6 +231,10 @@ export class ClientCreateComponent implements OnInit, AfterContentInit {
       client.email = this.clientForm.value.email;
       client.phoneNumber = this.clientForm.value.phoneNumber;
       client.observations = this.clientForm.value.observations;
+      client.anamnese = this.createStringAnamnese(this.anamneses);
+      client.dateOfBirth = this.clientForm.value.dateOfBirth;
+      client.cpfResponsible = this.clientForm.value.cpfResponsible;
+      client.rgResponsible = this.clientForm.value.rgResponsible;
 
       let address = new Address();
 

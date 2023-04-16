@@ -16,9 +16,14 @@ export class Client {
   name: string | undefined;
   cpf: string | undefined;
   rg: string | undefined;
+  dateOfBirth: Date | undefined;
   email: string | undefined;
   phoneNumber: string | undefined;
   observations: string | undefined;
   active: boolean | undefined;
+  nameResponsible: string | undefined;
+  cpfResponsible: string | undefined;
+  rgResponsible: string | undefined;
+  anamnese: string | undefined;
   address: Address | undefined;
 }
