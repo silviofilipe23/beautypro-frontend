@@ -18,17 +18,17 @@ import { CepService } from 'src/app/services/cep/cep.service';
 import { PhoneNumber } from 'src/app/utils/format-phonenumber';
 import { PhoneInputComponent } from 'src/app/utils/formatePhone';
 import { StatesService } from 'src/app/services/states/states.service';
-import { City, State } from 'src/app/models/States';
 import { User } from 'src/app/models/User';
-import { Address } from 'src/app/models/Address';
+import { Address, City, State } from 'src/app/models/Address';
+import { ERole } from 'src/app/models/ERole';
+import { Role } from 'src/app/models/Role';
 
 @Component({
   selector: 'app-user-create',
   templateUrl: './user-create.component.html',
-  styleUrls: ['./user-create.component.scss']
+  styleUrls: ['./user-create.component.scss'],
 })
 export class UserCreateComponent implements OnInit, AfterContentInit {
-
   @BlockUI() blockUI!: NgBlockUI;
 
   userForm!: FormGroup;
@@ -57,32 +57,24 @@ export class UserCreateComponent implements OnInit, AfterContentInit {
         Validators.required,
         Validators.maxLength(128),
       ]),
-      // cpf: new FormControl(this.editObject ? this.editObject.cpf : '', [
-      //   Validators.required,
-      //   Validators.maxLength(11),
-      // ]),
-      // rg: new FormControl(this.editObject ? this.editObject.rg : '', [
-      //   Validators.required,
-      //   Validators.maxLength(11),
-      // ]),
+      username: new FormControl(this.editObject ? this.editObject.name : '', [
+        Validators.maxLength(128),
+        Validators.required,
+      ]),
+      password: new FormControl('', [Validators.maxLength(128)]),
       email: new FormControl(this.editObject ? this.editObject.email : '', [
         Validators.email,
         Validators.maxLength(64),
         Validators.required,
       ]),
-
       phoneNumber: new FormControl(
         this.editObject ? this.editObject.phoneNumber : '',
         [Validators.required, Validators.maxLength(11)]
       ),
       observations: new FormControl(
-        this.editObject ? this.editObject.observations : '',
-        []
+        this.editObject ? this.editObject.observations : ''
       ),
-      active: new FormControl(
-        this.editObject ? this.editObject.active : null,
-        []
-      ),
+      active: new FormControl(this.editObject ? this.editObject.active : null),
       number: new FormControl(
         this.editObject ? this.editObject.address?.number : '',
         [Validators.maxLength(10)]
@@ -110,24 +102,31 @@ export class UserCreateComponent implements OnInit, AfterContentInit {
       ),
     });
   }
+
   ngAfterContentInit(): void {}
 
   ngOnInit(): void {
+    if (!this.editObject) {
+      this.userForm.get('password')?.setValidators(Validators.required);
+    }
+
     this.getStates();
   }
 
   createUser() {
+    console.log(this.userForm.value);
+
     if (this.userForm.valid) {
       this.blockUI.start();
 
       let user = new User();
 
+      user.username = this.userForm.value.username;
       user.name = this.userForm.value.name;
-      // user.cpf = this.userForm.value.cpf;
-      // user.rg = this.userForm.value.rg;
       user.email = this.userForm.value.email;
       user.phoneNumber = this.userForm.value.phoneNumber;
       user.observations = this.userForm.value.observations;
+      user.roles = [{ id: 2, name: 'ROLE_USER' }];
 
       let address = new Address();
 
@@ -142,12 +141,16 @@ export class UserCreateComponent implements OnInit, AfterContentInit {
 
       const requestUser = new User(user);
 
-      if (this.editObject) {
-        requestUser.active = this.userForm.value.active;
+      console.log(JSON.stringify(requestUser));
 
+      if (this.editObject) {
+        console.log('skdopfkp');
+
+        requestUser.active = this.userForm.value.active;
         this.editUser(this.editObject.id!, requestUser);
       } else {
         requestUser.active = true;
+        requestUser.password = this.userForm.value.password;
         this.createNewUser(requestUser);
       }
     }
@@ -195,8 +198,9 @@ export class UserCreateComponent implements OnInit, AfterContentInit {
               (a) => a.id == this.editObject.address?.city?.uf?.id
             );
             this.userForm.get('state')?.setValue(state);
-
-            this.getCity(state.id);
+            if (state) {
+              this.getCity(state.id);
+            }
           }
         }
       },
@@ -246,42 +250,6 @@ export class UserCreateComponent implements OnInit, AfterContentInit {
     });
   }
 
-  /**
-   * Busca CEP
-   * @param cep
-   */
-  // getCep(cep: string, event: any) {
-  //   if (cep.length == 8) {
-  //     this.blockUI.start();
-  //     this.serviceCep.getCep(cep).subscribe({
-  //       next: (response: HttpResponse<any>) => {
-  //         if (response.status == 200) {
-  //           console.log(response);
-
-  //           const objCep = response.body;
-
-  //           this.userForm.get('street')?.setValue(objCep.logradouro);
-  //           this.userForm.get('complement')?.setValue(objCep.complemento);
-  //           this.userForm.get('district')?.setValue(objCep.bairro);
-  //           this.userForm.get('city')?.setValue(objCep.localidade);
-  //           this.userForm.get('state')?.setValue(objCep.uf);
-  //         }
-
-  //         this.blockUI.stop();
-  //       },
-  //       error: (err) => {
-  //         this.blockUI.stop();
-  //         this._snackBar.open(err.error?.message, 'Fechar', {
-  //           duration: 5000,
-  //           horizontalPosition: this.horizontalPosition,
-  //           verticalPosition: this.verticalPosition,
-  //           panelClass: ['error-snackbar'],
-  //         });
-  //       },
-  //     });
-  //   }
-  // }
-
   createNewUser(requestUser: User) {
     this.service.createUser(requestUser).subscribe({
       next: (response: any) => {
@@ -308,5 +276,4 @@ export class UserCreateComponent implements OnInit, AfterContentInit {
       },
     });
   }
-
 }

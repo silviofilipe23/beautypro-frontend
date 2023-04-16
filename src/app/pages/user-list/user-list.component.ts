@@ -16,10 +16,9 @@ import { UserService } from 'src/app/services/user/user.service';
 @Component({
   selector: 'app-user-list',
   templateUrl: './user-list.component.html',
-  styleUrls: ['./user-list.component.scss']
+  styleUrls: ['./user-list.component.scss'],
 })
 export class UserListComponent implements OnInit, AfterViewInit {
-
   @BlockUI() blockUI!: NgBlockUI;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -31,8 +30,6 @@ export class UserListComponent implements OnInit, AfterViewInit {
   displayedColumns: string[] = [
     'id',
     'name',
-    'cpf',
-    'rg',
     'email',
     'phoneNumber',
     'active',
@@ -70,6 +67,7 @@ export class UserListComponent implements OnInit, AfterViewInit {
           return this.service!.listUser(
             this.paginator.pageIndex,
             this.paginator.pageSize,
+            null,
             null
           ).pipe(catchError(() => observableOf(null)));
         }),
@@ -104,7 +102,8 @@ export class UserListComponent implements OnInit, AfterViewInit {
           return this.service!.listUser(
             this.paginator.pageIndex,
             this.paginator.pageSize,
-            this.form.get('search')?.value
+            this.form.get('search')?.value,
+            null
           ).pipe(catchError(() => observableOf(null)));
         }),
         map((data: any) => {
@@ -128,14 +127,13 @@ export class UserListComponent implements OnInit, AfterViewInit {
       });
   }
 
-  formatCPF(cpf: string): string {
-    const cpfFormatted = new CPF(cpf);
-    return cpfFormatted.format();
-  }
-
   formatPhoneNumber(number: string): string {
-    const phoneNumber = new PhoneNumber(number);
-    return phoneNumber.format();
+    if (number) {
+      const phoneNumber = new PhoneNumber(number);
+      return phoneNumber.format();
+    } else {
+      return '';
+    }
   }
 
   onPaginatorChange(event: any) {
@@ -147,7 +145,6 @@ export class UserListComponent implements OnInit, AfterViewInit {
       state: { editObject: item },
     });
   }
-
 }
 
 function observableOf(arg0: null): any {

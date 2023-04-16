@@ -118,13 +118,7 @@
           <mat-header-cell *matHeaderCellDef>Ativo</mat-header-cell>
           <mat-cell *matCellDef="let element">
             <span class="mobile-label">Ativo:</span>
-            <mat-slide-toggle
-              class="example-margin"
-              color="primary"
-              [checked]="element.active"
-            >
-              {{ element.active ? "Ativo" : "Inativo" }}
-            </mat-slide-toggle>
+            {{ element.active ? "Ativo" : "Inativo" }}
           </mat-cell>
         </ng-container>
 

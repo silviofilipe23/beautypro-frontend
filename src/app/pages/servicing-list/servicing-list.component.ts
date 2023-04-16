@@ -1,70 +1,69 @@
-import { Router } from '@angular/router';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { PaginatorService } from './../../services/paginator/paginator.service';
+import { Servicing } from './../../models/Servicing';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
+import { PaginatorService } from 'src/app/services/paginator/paginator.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
-import { Component, OnInit, ViewChild } from '@angular/core';
 import { catchError, map, merge, startWith, switchMap } from 'rxjs';
-import { Product } from 'src/app/models/Product';
-import { ProductService } from 'src/app/services/product/product.service';
+import { CPF } from 'src/app/utils/format-cpf';
+import { PhoneNumber } from 'src/app/utils/format-phonenumber';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
+import { ServicingService } from 'src/app/services/servicing/servicing.service';
 
 @Component({
-  selector: 'app-product-list',
-  templateUrl: './product-list.component.html',
-  styleUrls: ['./product-list.component.scss'],
+  selector: 'app-servicing-list',
+  templateUrl: './servicing-list.component.html',
+  styleUrls: ['./servicing-list.component.scss'],
 })
-export class ProductListComponent implements OnInit {
+export class ServicingListComponent implements OnInit, AfterViewInit {
   @BlockUI() blockUI!: NgBlockUI;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  dataSource!: MatTableDataSource<Product>;
+  dataSource!: MatTableDataSource<Servicing>;
   listLength = 10;
-  listProducts: Product[] = [];
+  listServicings: Servicing[] = [];
   form: FormGroup;
   displayedColumns: string[] = [
     'id',
-    'name',
-    'brand',
-    'unitOfMeasure',
-    'quantity',
-    'supplier',
+    'description',
+    'price',
+    'averageTime',
     'active',
     'actions',
   ];
 
   constructor(
     private paginatorService: PaginatorService,
-    private service: ProductService,
+    private service: ServicingService,
     private fb: FormBuilder,
     private router: Router
   ) {
     this.form = this.fb.group({
       search: new FormControl(''),
-      // categoriesCheck: new FormControl(false),
-      // mediasCheck: new FormControl(false),
     });
   }
 
   ngAfterViewInit(): void {
     this.paginator.pageIndex = 0;
     this.paginator.pageSize = this.paginatorService.getPageSize();
-    this.getListProducts();
+    this.getListServicings();
   }
 
   ngOnInit(): void {}
 
-  getListProducts() {
+  getListServicings() {
     this.blockUI.start();
     this.paginator.pageIndex = 0;
     merge(this.paginator.page)
       .pipe(
         startWith({}),
         switchMap(() => {
-          return this.service!.listProduct(
+          return this.service!.listServicing(
             this.paginator.pageIndex,
             this.paginator.pageSize,
+            null,
             null
           ).pipe(catchError(() => observableOf(null)));
         }),
@@ -79,8 +78,8 @@ export class ProductListComponent implements OnInit {
       )
       .subscribe({
         next: (response: any) => {
-          this.listProducts = response;
-          this.dataSource = new MatTableDataSource(this.listProducts);
+          this.listServicings = response;
+          this.dataSource = new MatTableDataSource(this.listServicings);
           this.blockUI.stop();
         },
         error: (err) => {
@@ -96,10 +95,11 @@ export class ProductListComponent implements OnInit {
       .pipe(
         startWith({}),
         switchMap(() => {
-          return this.service!.listProduct(
+          return this.service!.listServicing(
             this.paginator.pageIndex,
             this.paginator.pageSize,
-            this.form.get('search')?.value
+            this.form.get('search')?.value,
+            null
           ).pipe(catchError(() => observableOf(null)));
         }),
         map((data: any) => {
@@ -113,8 +113,8 @@ export class ProductListComponent implements OnInit {
       )
       .subscribe({
         next: (response: any) => {
-          this.listProducts = response;
-          this.dataSource = new MatTableDataSource(this.listProducts);
+          this.listServicings = response;
+          this.dataSource = new MatTableDataSource(this.listServicings);
           this.blockUI.stop();
         },
         error: (err) => {
@@ -127,8 +127,8 @@ export class ProductListComponent implements OnInit {
     this.paginatorService.setPageSize(event.pageSize);
   }
 
-  goToEditProduct(item: Product) {
-    this.router.navigateByUrl('/product-edit', {
+  goToEditServicing(item: Servicing) {
+    this.router.navigateByUrl('/servicing-edit', {
       state: { editObject: item },
     });
   }

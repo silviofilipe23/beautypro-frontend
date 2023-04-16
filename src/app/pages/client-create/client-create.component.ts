@@ -1,3 +1,4 @@
+import { ERole } from './../../models/ERole';
 import { HttpResponse } from '@angular/common/http';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { Router } from '@angular/router';
@@ -18,9 +19,9 @@ import { CepService } from 'src/app/services/cep/cep.service';
 import { PhoneNumber } from 'src/app/utils/format-phonenumber';
 import { PhoneInputComponent } from 'src/app/utils/formatePhone';
 import { StatesService } from 'src/app/services/states/states.service';
-import { City, State } from 'src/app/models/States';
 import { Client } from 'src/app/models/Client';
-import { Address } from 'src/app/models/Address';
+import { Address, City, State } from 'src/app/models/Address';
+import { Role } from 'src/app/models/Role';
 
 @Component({
   selector: 'app-client-create',
@@ -109,6 +110,7 @@ export class ClientCreateComponent implements OnInit, AfterContentInit {
       ),
     });
   }
+
   ngAfterContentInit(): void {}
 
   ngOnInit(): void {

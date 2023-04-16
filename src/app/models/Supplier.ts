@@ -8,29 +8,17 @@ export class SupplierResponse {
 }
 
 export class Supplier {
-  id: number | undefined;
-  name: string | undefined;
-  cnpj: string | undefined;
-  email: string | undefined;
-  phoneNumber: string | undefined;
-  active: boolean | undefined;
-  address: Address | undefined;
-}
-
-export class RequestSupplier {
-  public constructor(init?: Partial<RequestSupplier>) {
+  public constructor(init?: Partial<Supplier>) {
     Object.assign(this, init);
   }
 
-  name: string | undefined;
+  id: number | undefined;
+  corporateName: string | undefined;
   cnpj: string | undefined;
+  name: string | undefined;
   email: string | undefined;
   phoneNumber: string | undefined;
-  street: string | undefined;
-  number: string | undefined;
-  complement: string | undefined;
-  district: string | undefined;
-  city: string | undefined;
-  state: string | undefined;
-  cep: string | undefined;
+  observations: string | undefined;
+  active: boolean | undefined;
+  address: Address | undefined;
 }

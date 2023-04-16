@@ -35,6 +35,8 @@ import {
 } from '@angular/material/paginator';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatChipsModule } from '@angular/material/chips';
 
 import { LoginLayoutComponent } from './pages/layouts/login-layout/login-layout.component';
 import { LoginComponent } from './pages/login/login.component';
@@ -52,6 +54,10 @@ import { SupplierListComponent } from './pages/supplier-list/supplier-list.compo
 import { SupplierCreateComponent } from './pages/supplier-create/supplier-create.component';
 import { UserListComponent } from './pages/user-list/user-list.component';
 import { UserCreateComponent } from './pages/user-create/user-create.component';
+import { ProductCreateComponent } from './pages/product-create/product-create.component';
+import { ServiceListComponent } from './pages/service-list/service-list.component';
+import { ServicingListComponent } from './pages/servicing-list/servicing-list.component';
+import { ServicingCreateComponent } from './pages/servicing-create/servicing-create.component';
 
 @NgModule({
   declarations: [
@@ -69,6 +75,10 @@ import { UserCreateComponent } from './pages/user-create/user-create.component';
     SupplierCreateComponent,
     UserListComponent,
     UserCreateComponent,
+    ProductCreateComponent,
+    ServiceListComponent,
+    ServicingListComponent,
+    ServicingCreateComponent,
   ],
   imports: [
     BrowserModule,
@@ -100,6 +110,8 @@ import { UserCreateComponent } from './pages/user-create/user-create.component';
     MatPaginatorModule,
     MatSlideToggleModule,
     MatTooltipModule,
+    MatAutocompleteModule,
+    MatChipsModule,
   ],
   providers: [
     {

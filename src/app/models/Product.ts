@@ -9,8 +9,16 @@ export class ProductResponse {
 }
 
 export class Product {
+  public constructor(init?: Partial<Product>) {
+    Object.assign(this, init);
+  }
+
   id: number | undefined;
   name: string | undefined;
+  description: string | undefined;
+  code: string | undefined;
+  brand: string | undefined;
+  notes: string | undefined;
   price: number | undefined;
   active: boolean | undefined;
   quantity: number | undefined;

@@ -1,7 +1,7 @@
-<section id="userList">
+<section id="servicingList">
   <div class="row">
     <div class="col-md-12 mt-2 mt-md-4">
-      <h1>Lista de Usuários</h1>
+      <h1>Lista de Serviços</h1>
     </div>
   </div>
 
@@ -17,7 +17,7 @@
                 placeholder="Filtrar pelo nome"
                 formControlName="search"
                 type="text"
-                (keyup)="!form.value.search ? getListUsers() : null"
+                (keyup)="!form.value.search ? getListServicings() : null"
               />
             </mat-form-field>
           </div>
@@ -51,17 +51,17 @@
               mat-raised-button
               color="primary"
               class="d-md-none form-control"
-              matTooltip="Adicionar Usuário"
-              routerLink="/user-create"
+              matTooltip="Adicionar Cliente"
+              routerLink="/client-create"
             >
-              Adicionar Usuário
+              Adicionar Cliente
             </a>
             <a
               mat-fab
               class="d-none d-sm-none d-md-block"
               color="primary"
-              matTooltip="Adicionar Usuário"
-              routerLink="/user-create"
+              matTooltip="Adicionar Cliente"
+              routerLink="/client-create"
             >
               <mat-icon>add</mat-icon>
             </a>
@@ -82,27 +82,27 @@
           >
         </ng-container>
 
-        <ng-container matColumnDef="name">
-          <mat-header-cell *matHeaderCellDef>Nome</mat-header-cell>
+        <ng-container matColumnDef="description">
+          <mat-header-cell *matHeaderCellDef>Descrição</mat-header-cell>
           <mat-cell *matCellDef="let element">
-            <span class="mobile-label">Nome:</span>
-            {{ element.name }}</mat-cell
+            <span class="mobile-label">Descrição:</span>
+            {{ element.description }}</mat-cell
           >
         </ng-container>
 
-        <ng-container matColumnDef="email">
-          <mat-header-cell *matHeaderCellDef>Email</mat-header-cell>
+        <ng-container matColumnDef="price">
+          <mat-header-cell *matHeaderCellDef>Valor</mat-header-cell>
           <mat-cell *matCellDef="let element">
-            <span class="mobile-label">email:</span
-            >{{ element.email }}</mat-cell
-          >
+            <span class="mobile-label">Valor:</span>
+            {{ element.price | currency : "RS" }}
+          </mat-cell>
         </ng-container>
 
-        <ng-container matColumnDef="phoneNumber">
-          <mat-header-cell *matHeaderCellDef>Telefone</mat-header-cell>
+        <ng-container matColumnDef="averageTime">
+          <mat-header-cell *matHeaderCellDef>Duração</mat-header-cell>
           <mat-cell *matCellDef="let element">
-            <span class="mobile-label">Telefone:</span>
-            {{ formatPhoneNumber(element.phoneNumber) }}
+            <span class="mobile-label">Duração:</span>
+            {{ element.averageTime }}
           </mat-cell>
         </ng-container>
 
@@ -118,22 +118,26 @@
           <mat-header-cell *matHeaderCellDef>Ações</mat-header-cell>
           <mat-cell *matCellDef="let element">
             <span class="mobile-label">Ações:</span>
-            <a mat-icon-button color="primary" (click)="goToEditUser(element)">
+            <a
+              mat-icon-button
+              color="primary"
+              (click)="goToEditServicing(element)"
+            >
               <mat-icon
                 class="material-icons-outlined"
-                matTooltip="Editar Usuário"
+                matTooltip="Editar Serviço"
               >
                 mode_edit_outline
               </mat-icon>
             </a>
 
-            <button
+            <!-- <button
               mat-icon-button
               color="primary"
-              matTooltip="Excluir Usuário"
+              matTooltip="Listar Atendimentos"
             >
-              <mat-icon>delete_outline</mat-icon>
-            </button>
+              <mat-icon>view_list</mat-icon>
+            </button> -->
           </mat-cell>
         </ng-container>
 

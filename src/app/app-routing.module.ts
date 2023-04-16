@@ -13,6 +13,10 @@ import { RouterModule, Routes } from '@angular/router';
 import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
 import { UserListComponent } from './pages/user-list/user-list.component';
 import { UserCreateComponent } from './pages/user-create/user-create.component';
+import { ProductCreateComponent } from './pages/product-create/product-create.component';
+import { ServiceListComponent } from './pages/service-list/service-list.component';
+import { ServicingListComponent } from './pages/servicing-list/servicing-list.component';
+import { ServicingCreateComponent } from './pages/servicing-create/servicing-create.component';
 
 const routes: Routes = [
   {
@@ -67,6 +71,16 @@ const routes: Routes = [
     ],
   },
   {
+    path: 'user-edit',
+    component: DefaultLayoutComponent,
+    children: [
+      {
+        path: '',
+        component: UserCreateComponent,
+      },
+    ],
+  },
+  {
     path: 'client-list',
     component: DefaultLayoutComponent,
     children: [
@@ -107,6 +121,26 @@ const routes: Routes = [
       },
     ],
   },
+  {
+    path: 'product-create',
+    component: DefaultLayoutComponent,
+    children: [
+      {
+        path: '',
+        component: ProductCreateComponent,
+      },
+    ],
+  },
+  {
+    path: 'product-edit',
+    component: DefaultLayoutComponent,
+    children: [
+      {
+        path: '',
+        component: ProductCreateComponent,
+      },
+    ],
+  },
 
   //Products
   {
@@ -120,12 +154,62 @@ const routes: Routes = [
     ],
   },
   {
+    path: 'supplier-edit',
+    component: DefaultLayoutComponent,
+    children: [
+      {
+        path: '',
+        component: SupplierCreateComponent,
+      },
+    ],
+  },
+  {
     path: 'supplier-create',
     component: DefaultLayoutComponent,
     children: [
       {
         path: '',
         component: SupplierCreateComponent,
+      },
+    ],
+  },
+  {
+    path: 'service-list',
+    component: DefaultLayoutComponent,
+    children: [
+      {
+        path: '',
+        component: ServiceListComponent,
+      },
+    ],
+  },
+  {
+    path: 'servicing-list',
+    component: DefaultLayoutComponent,
+    children: [
+      {
+        path: '',
+        component: ServicingListComponent,
+      },
+    ],
+  },
+  {
+    path: 'servicing-create',
+    component: DefaultLayoutComponent,
+    children: [
+      {
+        path: '',
+        component: ServicingCreateComponent,
+      },
+    ],
+  },
+  {
+    path: 'servicing-edit',
+    component: DefaultLayoutComponent,
+    children: [
+      {
+        path: '',
+        component: ServicingCreateComponent,
       },
     ],
   },

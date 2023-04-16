@@ -74,6 +74,7 @@ export class SupplierListComponent implements OnInit {
           return this.service!.listSupplier(
             this.paginator.pageIndex,
             this.paginator.pageSize,
+            null,
             null
           ).pipe(catchError(() => observableOf(null)));
         }),
@@ -108,7 +109,8 @@ export class SupplierListComponent implements OnInit {
           return this.service!.listSupplier(
             this.paginator.pageIndex,
             this.paginator.pageSize,
-            this.form.get('search')?.value
+            this.form.get('search')?.value,
+            null
           ).pipe(catchError(() => observableOf(null)));
         }),
         map((data: any) => {
