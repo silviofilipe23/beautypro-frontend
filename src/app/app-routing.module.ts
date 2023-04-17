@@ -20,6 +20,16 @@ import { ServicingCreateComponent } from './pages/servicing-create/servicing-cre
 
 const routes: Routes = [
   {
+    path: '',
+    component: LoginLayoutComponent,
+    children: [
+      {
+        path: '',
+        component: LoginComponent,
+      },
+    ],
+  },
+  {
     path: 'login',
     component: LoginLayoutComponent,
     children: [
