@@ -9,37 +9,37 @@ export class DefaultLayoutComponent implements OnInit {
   menus = [
     {
       name: 'Home',
-      icon: '',
+      icon: 'home',
       url: '/client-list',
     },
     {
       name: 'Agendamentos',
-      icon: '',
+      icon: 'event',
       url: '/service-list',
     },
     {
       name: 'Serviços',
-      icon: '',
+      icon: 'badge',
       url: '/servicing-list',
     },
     {
       name: 'Usuários',
-      icon: '',
+      icon: 'manage_accounts',
       url: '/user-list',
     },
     {
       name: 'Clientes',
-      icon: '',
+      icon: 'people',
       url: '/client-list',
     },
     {
       name: 'Produtos',
-      icon: '',
+      icon: 'inventory_2',
       url: '/product-list',
     },
     {
       name: 'Fornecedores',
-      icon: '',
+      icon: 'factory',
       url: '/supplier-list',
     },
   ];

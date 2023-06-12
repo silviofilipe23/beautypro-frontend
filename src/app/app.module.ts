@@ -24,6 +24,9 @@ import {
   MatNativeDateModule,
   MatRippleModule,
   MAT_DATE_LOCALE,
+  MatDateFormats,
+  DateAdapter,
+  MAT_DATE_FORMATS,
 } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -37,6 +40,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatChipsModule } from '@angular/material/chips';
+import { MatCardModule } from '@angular/material/card';
 
 import { LoginLayoutComponent } from './pages/layouts/login-layout/login-layout.component';
 import { LoginComponent } from './pages/login/login.component';
@@ -45,7 +49,10 @@ import { DefaultLayoutComponent } from './pages/layouts/default-layout/default-l
 import { HomeComponent } from './pages/home/home.component';
 import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
 import { UsersComponent } from './pages/users/users.component';
-import { MatMomentDateModule } from '@angular/material-moment-adapter';
+import {
+  MatMomentDateModule,
+  MomentDateAdapter,
+} from '@angular/material-moment-adapter';
 import { ClientListComponent } from './pages/client-list/client-list.component';
 import { getBrPaginatorIntl } from './portuguese-paginator-intl';
 import { ClientCreateComponent } from './pages/client-create/client-create.component';
@@ -58,6 +65,19 @@ import { ProductCreateComponent } from './pages/product-create/product-create.co
 import { ServiceListComponent } from './pages/service-list/service-list.component';
 import { ServicingListComponent } from './pages/servicing-list/servicing-list.component';
 import { ServicingCreateComponent } from './pages/servicing-create/servicing-create.component';
+import { ServiceCreateComponent } from './pages/service-create/service-create.component';
+
+export const MY_FORMATS: MatDateFormats = {
+  parse: {
+    dateInput: 'DD/MM/YYYY',
+  },
+  display: {
+    dateInput: 'DD/MM/YYYY',
+    monthYearLabel: 'MMM YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'MMMM YYYY',
+  },
+};
 
 @NgModule({
   declarations: [
@@ -79,6 +99,7 @@ import { ServicingCreateComponent } from './pages/servicing-create/servicing-cre
     ServiceListComponent,
     ServicingListComponent,
     ServicingCreateComponent,
+    ServiceCreateComponent,
   ],
   imports: [
     BrowserModule,
@@ -112,6 +133,7 @@ import { ServicingCreateComponent } from './pages/servicing-create/servicing-cre
     MatTooltipModule,
     MatAutocompleteModule,
     MatChipsModule,
+    MatCardModule,
   ],
   providers: [
     {
@@ -120,6 +142,12 @@ import { ServicingCreateComponent } from './pages/servicing-create/servicing-cre
       multi: true,
     },
     { provide: MAT_DATE_LOCALE, useValue: 'pt-BR' },
+    {
+      provide: DateAdapter,
+      useClass: MomentDateAdapter,
+      deps: [MAT_DATE_LOCALE],
+    },
+    { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
     { provide: MatDialogRef, useValue: {} },
     { provide: MatPaginatorIntl, useValue: getBrPaginatorIntl() },
   ],

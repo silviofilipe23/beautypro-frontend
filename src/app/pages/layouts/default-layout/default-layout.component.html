@@ -17,7 +17,9 @@
             style="cursor: pointer"
             matRipple
           >
-            <mat-icon matListItemIcon>folder</mat-icon>
+            <mat-icon matListItemIcon class="me-3" color="primary">{{
+              menu.icon
+            }}</mat-icon>
             <div matListItemTitle>{{ menu.name }}</div>
             <mat-divider></mat-divider>
           </mat-list-item>
@@ -58,7 +60,7 @@
           <mat-icon color="primary" class="material-icons-outlined"
             >person_outline</mat-icon
           >
-          <span>Milena Menezes</span>
+          <span>Larissa Danielle</span>
         </button>
         <button mat-menu-item>
           <mat-icon class="material-icons-outlined">account_box</mat-icon>

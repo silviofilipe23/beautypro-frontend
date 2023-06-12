@@ -17,6 +17,7 @@ import { ProductCreateComponent } from './pages/product-create/product-create.co
 import { ServiceListComponent } from './pages/service-list/service-list.component';
 import { ServicingListComponent } from './pages/servicing-list/servicing-list.component';
 import { ServicingCreateComponent } from './pages/servicing-create/servicing-create.component';
+import { ServiceCreateComponent } from './pages/service-create/service-create.component';
 
 const routes: Routes = [
   {
@@ -190,6 +191,16 @@ const routes: Routes = [
       {
         path: '',
         component: ServiceListComponent,
+      },
+    ],
+  },
+  {
+    path: 'service-create',
+    component: DefaultLayoutComponent,
+    children: [
+      {
+        path: '',
+        component: ServiceCreateComponent,
       },
     ],
   },

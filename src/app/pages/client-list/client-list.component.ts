@@ -31,9 +31,7 @@ export class ClientListComponent implements OnInit, AfterViewInit {
     'name',
     'cpf',
     'rg',
-    'email',
     'phoneNumber',
-    'active',
     'actions',
   ];
 

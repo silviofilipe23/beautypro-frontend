@@ -1,3 +1,79 @@
 @use "@angular/material" as mat;
 
-@include mat.core();
+// $beautypro-primary-palette: (
+//   50: #e7e9f6,
+//   100: #c3c8e8,
+//   200: #9ca5d8,
+//   300: #7582c8,
+//   400: #5766bd,
+//   500: #384cb2,
+//   600: #3244a8,
+//   700: #293a9c,
+//   800: #213090,
+//   900: #111e7b,
+
+//   // ... continues to 900
+//   contrast:
+//     (
+//       50: rgba(black, 0.87),
+//       100: rgba(black, 0.87),
+//       200: rgba(black, 0.87),
+//       300: white,
+//       // ... continues to 900
+//     ),
+// );
+
+// $beautypro-secondary-palette: (
+//   50: #fcfaea,
+//   100: #f6f1cb,
+//   200: #f0eaaa,
+//   300: #eae18c,
+//   400: #e5da77,
+//   500: #e0d464,
+//   600: #d1c35e,
+//   700: #bdae57,
+//   800: #a89852,
+//   900: #857449,
+
+//   // ... continues to 900
+//   contrast:
+//     (
+//       50: rgba(black, 0.87),
+//       100: rgba(black, 0.87),
+//       200: rgba(black, 0.87),
+//       300: white,
+//       // ... continues to 900
+//     ),
+// );
+
+// @include mat.core();
+
+// $beautypro-questionario-front-primary: mat.define-palette(
+//   $beautypro-primary-palette
+// );
+// $beautypro-questionario-front-accent: mat.define-palette(
+//   $beautypro-secondary-palette
+// );
+
+// $beautypro-questionario-front-warn: mat.define-palette(mat.$red-palette);
+
+// $beautypro-questionario-front-theme: mat.define-light-theme(
+//   (
+//     color: (
+//       primary: $beautypro-questionario-front-primary,
+//       accent: $beautypro-questionario-front-accent,
+//       warn: $beautypro-questionario-front-warn,
+//     ),
+//   )
+// );
+
+// @include mat.all-component-themes($beautypro-questionario-front-theme);
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif !important;
+}
