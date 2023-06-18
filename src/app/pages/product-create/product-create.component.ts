@@ -50,7 +50,7 @@ export class ProductCreateComponent implements OnInit, AfterContentInit {
   unitOfMeasureList: UnitOfMeasure[] | null = null;
   horizontalPosition: MatSnackBarHorizontalPosition = 'right';
   verticalPosition: MatSnackBarVerticalPosition = 'top';
-  filteredOptions: any;
+  filteredOptions: Observable<any> | undefined;
   selectedSupplier!: Supplier;
 
   constructor(
@@ -117,7 +117,7 @@ export class ProductCreateComponent implements OnInit, AfterContentInit {
 
     this.filteredOptions = this.productForm.get('supplier')?.valueChanges.pipe(
       startWith(''),
-      switchMap((value: any) => this._filter(value.supplier))
+      map((value) => this._filter(value.supplier))
     );
 
     this.getUnitsOfMeasure();

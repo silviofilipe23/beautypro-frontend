@@ -1,6 +1,11 @@
 @import "../../../my-theme.scss";
 
 #serviceList {
+  background-color: white;
+  width: 100% !important;
+  padding: 15px;
+  border-radius: 15px;
+
   .header {
     background-color: #fff;
   }

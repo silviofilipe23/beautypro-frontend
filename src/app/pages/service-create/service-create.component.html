@@ -24,28 +24,60 @@
             <mat-datepicker touchUi #picker></mat-datepicker>
           </mat-form-field>
         </div>
+
         <div class="col-md-4 py-1 py-md-3">
-          <mat-form-field class="example-full-width" appearance="outline">
-            <mat-label>Email</mat-label>
-            <input type="time" matInput formControlName="dateHourTime" />
+          <mat-form-field appearance="outline" style="width: 100%">
+            <mat-label>Horário Disponível</mat-label>
+            <mat-select formControlName="appointmentTime">
+              <mat-option value="1" *ngIf="availableTime.includes(1)">
+                08:00 - 10:00
+              </mat-option>
+              <mat-option value="2" *ngIf="availableTime.includes(2)">
+                10:00 - 12:00
+              </mat-option>
+              <mat-option value="3" *ngIf="availableTime.includes(3)">
+                12:00 - 14:00
+              </mat-option>
+              <mat-option value="4" *ngIf="availableTime.includes(4)">
+                14:00 - 16:00
+              </mat-option>
+              <mat-option value="5" *ngIf="availableTime.includes(5)">
+                16:00 - 18:00
+              </mat-option>
+            </mat-select>
           </mat-form-field>
         </div>
       </div>
+
       <!-- <div class="row">
         <div [ngClass]="!editObject ? 'col-md-12' : 'col-md-11'">
           <mat-form-field appearance="outline" style="width: 100%">
-            <mat-label>Descrição</mat-label>
+            <mat-label>Cliente</mat-label>
             <input
               matInput
               type="text"
               maxlength="255"
-              placeholder="Descrição do serviço"
-              formControlName="description"
+              placeholder="Digite nome do cliente"
+              formControlName="supplier"
+              [matAutocomplete]="auto"
             />
-            <mat-error
-              *ngIf="servicingForm.controls['description'].hasError('required')"
+            <mat-autocomplete
+              (optionSelected)="selectedProduct($event)"
+              #auto="matAutocomplete"
+              [displayWith]="displayFn"
             >
-              Descrição é obrigatório
+              <mat-option
+                *ngFor="let option of filteredOptions | async"
+                [value]="option"
+              >
+                {{ option.name }}
+              </mat-option>
+            </mat-autocomplete>
+
+            <mat-error
+              *ngIf="productForm.controls['supplier'].hasError('required')"
+            >
+              Fornecedor é obrigatório
             </mat-error>
           </mat-form-field>
         </div>
@@ -59,9 +91,9 @@
             {{ servicingForm.controls["active"].value ? "Ativo" : "Inativo" }}
           </mat-slide-toggle>
         </div>
-      </div>
+      </div> -->
 
-      <div class="row">
+      <!-- <div class="row">
         <div class="col-md-6">
         </div>
 

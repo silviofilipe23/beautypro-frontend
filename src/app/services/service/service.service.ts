@@ -23,4 +23,13 @@ export class ServiceService {
       { observe: 'response' }
     );
   }
+
+  listAvailableTime(start: string | null, end: string | null) {
+    return this.http.get<any>(
+      `${environment.urlBase}/services/available-time?` +
+        (start !== null ? `start=${start}` : '') +
+        (end !== null ? `&end=${end}` : ''),
+      { observe: 'response' }
+    );
+  }
 }

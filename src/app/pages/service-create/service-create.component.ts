@@ -1,6 +1,11 @@
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import {
   MatSnackBar,
   MatSnackBarHorizontalPosition,
@@ -9,6 +14,8 @@ import {
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user/user.service';
 import { Service } from 'src/app/models/Service';
+import { ServiceService } from 'src/app/services/service/service.service';
+import { HttpResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-service-create',
@@ -24,12 +31,13 @@ export class ServiceCreateComponent implements OnInit {
   verticalPosition: MatSnackBarVerticalPosition = 'top';
   filteredOptions: any;
   todayDate: Date = new Date();
+  availableTime: number[] = [];
 
   allProfessionals: string[] = [];
 
   constructor(
     private fb: FormBuilder,
-    // private service: ServicingService,
+    private service: ServiceService,
     private serviceUser: UserService,
     private _snackBar: MatSnackBar,
     private router: Router
@@ -41,12 +49,39 @@ export class ServiceCreateComponent implements OnInit {
     }
 
     this.serviceForm = this.fb.group({
-      dateHour: new FormControl(''),
-      dateHourTime: new FormControl(''),
+      dateHour: new FormControl('', [Validators.required]),
+      appointmentTime: new FormControl('', [Validators.required]),
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.getAvailableTime();
+  }
+
+  getAvailableTime() {
+    this.blockUI.start();
+
+    const todayStart = new Date();
+    todayStart.setHours(0, 0, 0, 0);
+    // todayStart.setDate(25);
+
+    const todayEnd = new Date();
+    todayEnd.setHours(23, 59, 0, 0);
+
+    this.service
+      .listAvailableTime(todayStart.toISOString(), todayEnd.toISOString())
+      .subscribe({
+        next: (response: HttpResponse<number[]>) => {
+          console.log(response.body);
+          this.availableTime! = response.body!;
+          this.blockUI.stop();
+        },
+        error: (err) => {
+          console.log(err);
+          this.blockUI.stop();
+        },
+      });
+  }
 
   createService() {}
 }
