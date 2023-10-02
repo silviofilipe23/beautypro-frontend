@@ -1,3 +1,4 @@
+import { ConsumedProducts } from './ConsumedProducts';
 import { Product } from './Product';
 import { User } from './User';
 
@@ -13,6 +14,6 @@ export class Servicing {
   postService: string | undefined;
   returnDays: string | undefined;
   professionalList: User[] | undefined;
-  consumedProducts: Product[] | undefined;
+  consumedProducts: ConsumedProducts[] | undefined;
   active: boolean | undefined;
 }

@@ -17,7 +17,7 @@
               maxlength="255"
               placeholder="Digite nome do fornecedor"
               formControlName="supplier"
-              #matAutocomplete
+              [matAutocomplete]="auto"
             />
             <mat-autocomplete
               (optionSelected)="selectedProduct($event)"

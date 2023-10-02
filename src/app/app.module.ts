@@ -66,6 +66,7 @@ import { ServiceListComponent } from './pages/service-list/service-list.componen
 import { ServicingListComponent } from './pages/servicing-list/servicing-list.component';
 import { ServicingCreateComponent } from './pages/servicing-create/servicing-create.component';
 import { ServiceCreateComponent } from './pages/service-create/service-create.component';
+import { AddProductDialogComponent } from './components/add-product-dialog/add-product-dialog.component';
 
 export const MY_FORMATS: MatDateFormats = {
   parse: {
@@ -100,6 +101,7 @@ export const MY_FORMATS: MatDateFormats = {
     ServicingListComponent,
     ServicingCreateComponent,
     ServiceCreateComponent,
+    AddProductDialogComponent,
   ],
   imports: [
     BrowserModule,

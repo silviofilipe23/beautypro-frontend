@@ -4,10 +4,11 @@ import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { Router } from '@angular/router';
 import { ClientService } from 'src/app/services/client/client.service';
 import {
-  FormBuilder,
-  FormGroup,
+  UntypedFormBuilder,
+  UntypedFormGroup,
   FormControl,
   Validators,
+  FormBuilder,
 } from '@angular/forms';
 import {
   MatSnackBar,
@@ -36,7 +37,7 @@ import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 export class ClientCreateComponent implements OnInit, AfterContentInit {
   @BlockUI() blockUI!: NgBlockUI;
 
-  clientForm!: FormGroup;
+  clientForm!: UntypedFormGroup;
   editObject!: Client;
   states: State[] | null = null;
   cities: City[] | null = null;
@@ -128,9 +129,7 @@ export class ClientCreateComponent implements OnInit, AfterContentInit {
       rgResponsible: new FormControl(
         this.editObject ? this.editObject.rgResponsible : ''
       ),
-      anamnese: new FormControl(
-        this.editObject ? this.editObject.anamnese : ''
-      ),
+      anamnese: new FormControl('', [Validators.required]),
 
       number: new FormControl(
         this.editObject ? this.editObject.address?.number : '',
@@ -170,6 +169,7 @@ export class ClientCreateComponent implements OnInit, AfterContentInit {
   ngAfterContentInit(): void {}
 
   ngOnInit(): void {
+    this.getAnamnese(this.editObject ? this.editObject.anamnese : '');
     this.getStates();
   }
 
@@ -215,6 +215,11 @@ export class ClientCreateComponent implements OnInit, AfterContentInit {
       string += `${array[i]},`;
     }
     return string;
+  }
+
+  getAnamnese(string: string) {
+    const array = string.split(',');
+    this.anamneses = array.filter((a) => a !== '');
   }
 
   createClient() {

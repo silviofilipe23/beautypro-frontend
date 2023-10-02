@@ -1,5 +1,5 @@
 import { Router } from '@angular/router';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { PaginatorService } from './../../services/paginator/paginator.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
@@ -22,7 +22,7 @@ export class ProductListComponent implements OnInit {
   dataSource!: MatTableDataSource<Product>;
   listLength = 10;
   listProducts: Product[] = [];
-  form: FormGroup;
+  form: UntypedFormGroup;
   displayedColumns: string[] = [
     'id',
     'name',
@@ -37,11 +37,11 @@ export class ProductListComponent implements OnInit {
   constructor(
     private paginatorService: PaginatorService,
     private service: ProductService,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private router: Router
   ) {
     this.form = this.fb.group({
-      search: new FormControl(''),
+      search: new UntypedFormControl(''),
       // categoriesCheck: new FormControl(false),
       // mediasCheck: new FormControl(false),
     });

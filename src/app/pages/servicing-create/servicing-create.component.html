@@ -38,44 +38,7 @@
       </div>
 
       <div class="row">
-        <div class="col-md-6">
-          <!-- <mat-form-field
-            class="example-chip-list"
-            appearance="outline"
-            style="width: 100%"
-          >
-            <mat-label>Favorite Fruits</mat-label>
-            <mat-chip-list #chipList aria-label="Fruit selection">
-              <mat-chip *ngFor="let fruit of fruits" (removed)="remove(fruit)">
-                {{ fruit }}
-                <button matChipRemove>
-                  <mat-icon>cancel</mat-icon>
-                </button>
-              </mat-chip>
-              <input
-                placeholder="New fruit..."
-                #fruitInput
-                [formControl]="fruitCtrl"
-                [matAutocomplete]="auto"
-                [matChipInputFor]="chipList"
-                (matChipInputTokenEnd)="add($event)"
-              />
-            </mat-chip-list>
-            <mat-autocomplete
-              #auto="matAutocomplete"
-              (optionSelected)="selected($event)"
-            >
-              <mat-option
-                *ngFor="let fruit of filteredFruits | async"
-                [value]="fruit"
-              >
-                {{ fruit }}
-              </mat-option>
-            </mat-autocomplete>
-          </mat-form-field> -->
-        </div>
-
-        <div class="col-md-6">
+        <div class="col-md-10">
           <mat-form-field appearance="outline" style="width: 100%">
             <mat-label>Profissionais</mat-label>
             <mat-chip-list
@@ -114,41 +77,16 @@
           </mat-form-field>
         </div>
 
-        <div class="col-md-6">
-          <!-- <mat-form-field
-            class="example-chip-list"
-            appearance="outline"
-            style="width: 100%"
+        <div class="col-md-2">
+          <button
+            type="button"
+            class="btn-add-products"
+            mat-raised-button
+            color="primary"
+            (click)="openInfoDialog()"
           >
-            <mat-label>Favorite Fruits</mat-label>
-            <mat-chip-list #chipList aria-label="Fruit selection">
-              <mat-chip *ngFor="let fruit of fruits" (removed)="remove(fruit)">
-                {{ fruit }}
-                <button matChipRemove>
-                  <mat-icon>cancel</mat-icon>
-                </button>
-              </mat-chip>
-              <input
-                placeholder="New fruit..."
-                #fruitInput
-                [formControl]="fruitCtrl"
-                [matAutocomplete]="auto"
-                [matChipInputFor]="chipList"
-                (matChipInputTokenEnd)="add($event)"
-              />
-            </mat-chip-list>
-            <mat-autocomplete
-              #auto="matAutocomplete"
-              (optionSelected)="selected($event)"
-            >
-              <mat-option
-                *ngFor="let fruit of filteredFruits | async"
-                [value]="fruit"
-              >
-                {{ fruit }}
-              </mat-option>
-            </mat-autocomplete>
-          </mat-form-field> -->
+            Adicionar Produtos
+          </button>
         </div>
       </div>
 
@@ -156,9 +94,10 @@
         <div class="col-md-4">
           <mat-form-field appearance="outline" style="width: 100%">
             <mat-label>Valor</mat-label>
+            <span matPrefix>R$ &nbsp;</span>
             <input
               matInput
-              type="text"
+              type="number"
               maxlength="255"
               placeholder="Valor do serviço"
               formControlName="price"
@@ -206,6 +145,10 @@
             </mat-error>
           </mat-form-field>
         </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12"></div>
       </div>
 
       <div class="row">

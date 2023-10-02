@@ -7,9 +7,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { LoginService } from 'src/app/services/login/login.service';
 import {
   AbstractControl,
-  FormBuilder,
-  FormControl,
-  FormGroup,
+  UntypedFormBuilder,
+  UntypedFormControl,
+  UntypedFormGroup,
   ValidationErrors,
   Validators,
 } from '@angular/forms';
@@ -22,7 +22,7 @@ import { HttpResponse } from '@angular/common/http';
   styleUrls: ['./reset-password.component.scss'],
 })
 export class ResetPasswordComponent implements OnInit {
-  public resetFormData!: FormGroup;
+  public resetFormData!: UntypedFormGroup;
   @BlockUI() blockUI!: NgBlockUI;
   public hide: boolean = true;
   public hide1: boolean = true;
@@ -30,7 +30,7 @@ export class ResetPasswordComponent implements OnInit {
   public userEmail: string = '';
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private service: LoginService,
     private _snackBar: MatSnackBar,
     private router: Router,
@@ -38,25 +38,25 @@ export class ResetPasswordComponent implements OnInit {
   ) {
     this.resetFormData = this.fb.group(
       {
-        email: new FormControl({ value: '', disabled: 'true' }, [
+        email: new UntypedFormControl({ value: '', disabled: 'true' }, [
           Validators.required,
           Validators.email,
           Validators.maxLength(50),
         ]),
-        newPassword: new FormControl('', [
+        newPassword: new UntypedFormControl('', [
           Validators.required,
           Validators.maxLength(50),
         ]),
-        confirmNewPassword: new FormControl('', [
+        confirmNewPassword: new UntypedFormControl('', [
           Validators.required,
           Validators.maxLength(50),
         ]),
-        token: new FormControl({ value: '' }, [
+        token: new UntypedFormControl({ value: '' }, [
           Validators.required,
           Validators.maxLength(50),
         ]),
-      },
-      { validators: this.passwordsMatchValidator }
+      }
+      // { validators: this.passwordsMatchValidator }
     );
   }
 
@@ -151,14 +151,14 @@ export class ResetPasswordComponent implements OnInit {
     }
   }
 
-  passwordsMatchValidator(control: AbstractControl): ValidationErrors | null {
-    const newPassword = control.get('newPassword');
-    const confirmNewPassword = control.get('confirmNewPassword');
+  // passwordsMatchValidator(control: AbstractControl): ValidationErrors | null {
+  //   const newPassword = control.get('newPassword');
+  //   const confirmNewPassword = control.get('confirmNewPassword');
 
-    return newPassword &&
-      confirmNewPassword &&
-      newPassword.value !== confirmNewPassword.value
-      ? confirmNewPassword.setErrors({ passwordsMismatch: true })!
-      : null;
-  }
+  //   return newPassword &&
+  //     confirmNewPassword &&
+  //     newPassword.value !== confirmNewPassword.value
+  //     ? confirmNewPassword.setErrors({ passwordsMismatch: true })!
+  //     : null;
+  // }
 }

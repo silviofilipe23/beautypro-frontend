@@ -4,9 +4,9 @@ import { HttpResponse } from '@angular/common/http';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { Router } from '@angular/router';
 import {
-  FormBuilder,
-  FormGroup,
-  FormControl,
+  UntypedFormBuilder,
+  UntypedFormGroup,
+  UntypedFormControl,
   Validators,
 } from '@angular/forms';
 import {
@@ -32,6 +32,9 @@ import { Observable } from 'rxjs';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { UserService } from 'src/app/services/user/user.service';
 import { ProductService } from 'src/app/services/product/product.service';
+import { AddProductDialogComponent } from 'src/app/components/add-product-dialog/add-product-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
+import { ConsumedProducts } from 'src/app/models/ConsumedProducts';
 
 @Component({
   selector: 'app-servicing-create',
@@ -41,15 +44,16 @@ import { ProductService } from 'src/app/services/product/product.service';
 export class ServicingCreateComponent implements OnInit, AfterContentInit {
   @BlockUI() blockUI!: NgBlockUI;
 
-  servicingForm!: FormGroup;
+  servicingForm!: UntypedFormGroup;
   editObject!: Servicing;
   suppliersList: Supplier[] | null = null;
   unitOfMeasureList: UnitOfMeasure[] | null = null;
   horizontalPosition: MatSnackBarHorizontalPosition = 'right';
   verticalPosition: MatSnackBarVerticalPosition = 'top';
   filteredOptions: any;
+  consumedProducts: ConsumedProducts[] = [];
 
-  fruitCtrl = new FormControl();
+  fruitCtrl = new UntypedFormControl();
   filteredFruits: Observable<string[]>;
   filteredProfessionals: Observable<string[]>;
   filteredProducts: Observable<string[]>;
@@ -69,47 +73,50 @@ export class ServicingCreateComponent implements OnInit, AfterContentInit {
     | undefined;
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private service: ServicingService,
     private serviceUser: UserService,
     private serviceProduct: ProductService,
     private unitOfMeasureService: UnitOfMeasureService,
     private _snackBar: MatSnackBar,
-    private router: Router
+    private router: Router,
+    public dialog: MatDialog
   ) {
     if (this.router.getCurrentNavigation()?.extras.state !== undefined) {
       this.editObject =
         this.router.getCurrentNavigation()?.extras?.state?.['editObject'];
-      console.log(this.editObject);
     }
 
     this.servicingForm = this.fb.group({
-      description: new FormControl(
+      description: new UntypedFormControl(
         this.editObject ? this.editObject.description : '',
         [Validators.required, Validators.maxLength(255)]
       ),
-      price: new FormControl(this.editObject ? this.editObject.price : '', [
-        Validators.required,
-      ]),
-      averageTime: new FormControl(
+      price: new UntypedFormControl(
+        this.editObject ? this.editObject.price : '',
+        [Validators.required]
+      ),
+      averageTime: new UntypedFormControl(
         this.editObject ? this.editObject.averageTime : '',
         [Validators.required]
       ),
-      preService: new FormControl(
+      preService: new UntypedFormControl(
         this.editObject ? this.editObject.preService : '',
         [Validators.required, Validators.maxLength(255)]
       ),
-      postService: new FormControl(
+      postService: new UntypedFormControl(
         this.editObject ? this.editObject.postService : '',
         [Validators.required]
       ),
-      returnDays: new FormControl(
+      returnDays: new UntypedFormControl(
         this.editObject ? this.editObject.returnDays : '',
         [Validators.required]
       ),
-      active: new FormControl(this.editObject ? this.editObject.active : null),
-      professionalList: new FormControl('', [Validators.required]),
-      consumedServicings: new FormControl('', [Validators.required]),
+      active: new UntypedFormControl(
+        this.editObject ? this.editObject.active : null
+      ),
+      professionalList: new UntypedFormControl('', [Validators.required]),
+      consumedServicings: new UntypedFormControl('', [Validators.required]),
     });
 
     this.filteredFruits = this.fruitCtrl.valueChanges.pipe(
@@ -142,6 +149,32 @@ export class ServicingCreateComponent implements OnInit, AfterContentInit {
 
   ngOnInit(): void {
     this.getAllProfessionals();
+    this.getListProfessionals();
+  }
+
+  public openInfoDialog() {
+    const dialogRef = this.dialog.open(AddProductDialogComponent, {
+      width: '544px',
+      disableClose: true,
+      autoFocus: false,
+    });
+
+    dialogRef.afterClosed().subscribe((_result: any) => {
+      console.log(_result);
+    });
+  }
+
+  getListProfessionals() {
+    if (this.editObject) {
+      let array = [];
+      for (let i = 0; i < this.editObject.professionalList.length; i++) {
+        const element = this.editObject.professionalList[i];
+
+        array.push(element.name);
+      }
+
+      this.professionals = array;
+    }
   }
 
   add(event: MatChipInputEvent): void {
@@ -272,8 +305,6 @@ export class ServicingCreateComponent implements OnInit, AfterContentInit {
         for (let i = 0; i < listProfessionals?.length; i++) {
           this.allProfessionals!.push(listProfessionals[i].name);
         }
-
-        console.log(this.allProfessionals);
       },
       error: (err) => {
         this.blockUI.stop();
@@ -322,7 +353,7 @@ export class ServicingCreateComponent implements OnInit, AfterContentInit {
       servicing.postService = this.servicingForm.value.postService;
       servicing.returnDays = this.servicingForm.value.returnDays;
       servicing.professionalList = this.servicingForm.value.professionalList;
-      servicing.consumedProducts = this.servicingForm.value.consumedProducts;
+      servicing.consumedProducts = this.consumedProducts;
 
       const requestServicing = new Servicing(servicing);
 

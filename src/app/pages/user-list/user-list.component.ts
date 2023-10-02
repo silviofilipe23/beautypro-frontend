@@ -10,7 +10,7 @@ import { catchError, map, merge, startWith, switchMap } from 'rxjs';
 import { ClientService } from 'src/app/services/client/client.service';
 import { CPF } from 'src/app/utils/format-cpf';
 import { PhoneNumber } from 'src/app/utils/format-phonenumber';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { UserService } from 'src/app/services/user/user.service';
 
 @Component({
@@ -26,7 +26,7 @@ export class UserListComponent implements OnInit, AfterViewInit {
   dataSource!: MatTableDataSource<Client>;
   listLength = 10;
   listUsers: Client[] = [];
-  form: FormGroup;
+  form: UntypedFormGroup;
   displayedColumns: string[] = [
     'id',
     'name',
@@ -39,11 +39,11 @@ export class UserListComponent implements OnInit, AfterViewInit {
   constructor(
     private paginatorService: PaginatorService,
     private service: UserService,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private router: Router
   ) {
     this.form = this.fb.group({
-      search: new FormControl(''),
+      search: new UntypedFormControl(''),
       // categoriesCheck: new FormControl(false),
       // mediasCheck: new FormControl(false),
     });

@@ -5,9 +5,9 @@ import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { Router } from '@angular/router';
 import { ClientService } from 'src/app/services/client/client.service';
 import {
-  FormBuilder,
-  FormGroup,
-  FormControl,
+  UntypedFormBuilder,
+  UntypedFormGroup,
+  UntypedFormControl,
   Validators,
 } from '@angular/forms';
 import {
@@ -44,17 +44,17 @@ import {
 export class ProductCreateComponent implements OnInit, AfterContentInit {
   @BlockUI() blockUI!: NgBlockUI;
 
-  productForm!: FormGroup;
+  productForm!: UntypedFormGroup;
   editObject!: Product;
   suppliersList: Supplier[] | null = null;
   unitOfMeasureList: UnitOfMeasure[] | null = null;
   horizontalPosition: MatSnackBarHorizontalPosition = 'right';
   verticalPosition: MatSnackBarVerticalPosition = 'top';
-  filteredOptions: Observable<any> | undefined;
+  filteredOptions: any;
   selectedSupplier!: Supplier;
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private service: ProductService,
     private serviceSupplier: SupplierService,
     private unitOfMeasureService: UnitOfMeasureService,
@@ -68,41 +68,43 @@ export class ProductCreateComponent implements OnInit, AfterContentInit {
     }
 
     this.productForm = this.fb.group({
-      name: new FormControl(this.editObject ? this.editObject.name : '', [
-        Validators.required,
-        Validators.maxLength(255),
-      ]),
-      description: new FormControl(
+      name: new UntypedFormControl(
+        this.editObject ? this.editObject.name : '',
+        [Validators.required, Validators.maxLength(255)]
+      ),
+      description: new UntypedFormControl(
         this.editObject ? this.editObject.description : '',
         [Validators.required, Validators.maxLength(255)]
       ),
-      code: new FormControl(this.editObject ? this.editObject.code : '', [
-        Validators.required,
-        Validators.maxLength(255),
-      ]),
-      brand: new FormControl(this.editObject ? this.editObject.brand : '', [
-        Validators.required,
-        Validators.maxLength(255),
-      ]),
-      notes: new FormControl(this.editObject ? this.editObject.notes : '', [
-        Validators.required,
-      ]),
-      price: new FormControl(this.editObject ? this.editObject.price : '', [
-        Validators.required,
-      ]),
-      active: new FormControl(
+      code: new UntypedFormControl(
+        this.editObject ? this.editObject.code : '',
+        [Validators.required, Validators.maxLength(255)]
+      ),
+      brand: new UntypedFormControl(
+        this.editObject ? this.editObject.brand : '',
+        [Validators.required, Validators.maxLength(255)]
+      ),
+      notes: new UntypedFormControl(
+        this.editObject ? this.editObject.notes : '',
+        [Validators.required]
+      ),
+      price: new UntypedFormControl(
+        this.editObject ? this.editObject.price : '',
+        [Validators.required]
+      ),
+      active: new UntypedFormControl(
         this.editObject ? this.editObject.active : null,
         []
       ),
-      quantity: new FormControl(
+      quantity: new UntypedFormControl(
         this.editObject ? this.editObject.quantity : '',
         [Validators.required]
       ),
-      unitOfMeasure: new FormControl(
+      unitOfMeasure: new UntypedFormControl(
         this.editObject ? this.editObject.unitOfMeasure : '',
         [Validators.required]
       ),
-      supplier: new FormControl('', [Validators.required]),
+      supplier: new UntypedFormControl('', [Validators.required]),
       // observations: new FormControl(this.editObject ? this.editObject.observations : '', [Validators.required]),
     });
   }
@@ -117,7 +119,7 @@ export class ProductCreateComponent implements OnInit, AfterContentInit {
 
     this.filteredOptions = this.productForm.get('supplier')?.valueChanges.pipe(
       startWith(''),
-      map((value) => this._filter(value.supplier))
+      switchMap((value) => this._filter(value))
     );
 
     this.getUnitsOfMeasure();
@@ -136,6 +138,8 @@ export class ProductCreateComponent implements OnInit, AfterContentInit {
   }
 
   _filter(value: string) {
+    console.log(value);
+
     return this.serviceSupplier
       .listSupplier(0, 10, typeof value == 'string' ? value : '', true)
       .pipe(

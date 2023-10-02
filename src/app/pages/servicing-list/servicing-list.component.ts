@@ -7,7 +7,7 @@ import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { catchError, map, merge, startWith, switchMap } from 'rxjs';
 import { CPF } from 'src/app/utils/format-cpf';
 import { PhoneNumber } from 'src/app/utils/format-phonenumber';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ServicingService } from 'src/app/services/servicing/servicing.service';
 
@@ -24,7 +24,7 @@ export class ServicingListComponent implements OnInit, AfterViewInit {
   dataSource!: MatTableDataSource<Servicing>;
   listLength = 10;
   listServicings: Servicing[] = [];
-  form: FormGroup;
+  form: UntypedFormGroup;
   displayedColumns: string[] = [
     'id',
     'description',
@@ -37,11 +37,11 @@ export class ServicingListComponent implements OnInit, AfterViewInit {
   constructor(
     private paginatorService: PaginatorService,
     private service: ServicingService,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private router: Router
   ) {
     this.form = this.fb.group({
-      search: new FormControl(''),
+      search: new UntypedFormControl(''),
     });
   }
 

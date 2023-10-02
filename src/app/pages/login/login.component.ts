@@ -6,9 +6,9 @@ import {
 import { LoginService } from './../../services/login/login.service';
 import { Component, OnInit } from '@angular/core';
 import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
+  UntypedFormBuilder,
+  UntypedFormControl,
+  UntypedFormGroup,
   Validators,
 } from '@angular/forms';
 import { BlockUI } from 'ng-block-ui';
@@ -27,29 +27,29 @@ export class LoginComponent implements OnInit {
   @BlockUI() blockUI!: NgBlockUI;
   public hide: boolean = true;
   public isIframe = false;
-  public loginFormData!: FormGroup;
-  public forgotPasswordFormData!: FormGroup;
+  public loginFormData!: UntypedFormGroup;
+  public forgotPasswordFormData!: UntypedFormGroup;
   public isLogin: boolean = true;
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private service: LoginService,
     private _snackBar: MatSnackBar,
     private router: Router
   ) {
     this.loginFormData = this.fb.group({
-      username: new FormControl('', [
+      username: new UntypedFormControl('', [
         Validators.required,
         Validators.maxLength(50),
       ]),
-      password: new FormControl('', [
+      password: new UntypedFormControl('', [
         Validators.required,
         Validators.maxLength(50),
       ]),
     });
 
     this.forgotPasswordFormData = this.fb.group({
-      email: new FormControl('', [
+      email: new UntypedFormControl('', [
         Validators.required,
         Validators.email,
         Validators.maxLength(50),

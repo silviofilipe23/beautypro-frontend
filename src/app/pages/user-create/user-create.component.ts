@@ -3,9 +3,9 @@ import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user/user.service';
 import {
-  FormBuilder,
-  FormGroup,
-  FormControl,
+  UntypedFormBuilder,
+  UntypedFormGroup,
+  UntypedFormControl,
   Validators,
 } from '@angular/forms';
 import {
@@ -31,7 +31,7 @@ import { Role } from 'src/app/models/Role';
 export class UserCreateComponent implements OnInit, AfterContentInit {
   @BlockUI() blockUI!: NgBlockUI;
 
-  userForm!: FormGroup;
+  userForm!: UntypedFormGroup;
   editObject!: User;
   states: State[] | null = null;
   cities: City[] | null = null;
@@ -39,7 +39,7 @@ export class UserCreateComponent implements OnInit, AfterContentInit {
   verticalPosition: MatSnackBarVerticalPosition = 'top';
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private service: UserService,
     private serviceCep: CepService,
     private statesService: StatesService,
@@ -53,50 +53,50 @@ export class UserCreateComponent implements OnInit, AfterContentInit {
     }
 
     this.userForm = this.fb.group({
-      name: new FormControl(this.editObject ? this.editObject.name : '', [
+      name: new UntypedFormControl(this.editObject ? this.editObject.name : '', [
         Validators.required,
         Validators.maxLength(128),
       ]),
-      username: new FormControl(this.editObject ? this.editObject.name : '', [
+      username: new UntypedFormControl(this.editObject ? this.editObject.name : '', [
         Validators.maxLength(128),
         Validators.required,
       ]),
-      password: new FormControl('', [Validators.maxLength(128)]),
-      email: new FormControl(this.editObject ? this.editObject.email : '', [
+      password: new UntypedFormControl('', [Validators.maxLength(128)]),
+      email: new UntypedFormControl(this.editObject ? this.editObject.email : '', [
         Validators.email,
         Validators.maxLength(64),
         Validators.required,
       ]),
-      phoneNumber: new FormControl(
+      phoneNumber: new UntypedFormControl(
         this.editObject ? this.editObject.phoneNumber : '',
         [Validators.required, Validators.maxLength(11)]
       ),
-      observations: new FormControl(
+      observations: new UntypedFormControl(
         this.editObject ? this.editObject.observations : ''
       ),
-      active: new FormControl(this.editObject ? this.editObject.active : null),
-      number: new FormControl(
+      active: new UntypedFormControl(this.editObject ? this.editObject.active : null),
+      number: new UntypedFormControl(
         this.editObject ? this.editObject.address?.number : '',
         [Validators.maxLength(10)]
       ),
-      street: new FormControl(
+      street: new UntypedFormControl(
         this.editObject ? this.editObject.address?.street : '',
         [Validators.maxLength(512)]
       ),
-      complement: new FormControl(
+      complement: new UntypedFormControl(
         this.editObject ? this.editObject.address?.complement : '',
         [Validators.maxLength(512)]
       ),
-      district: new FormControl(
+      district: new UntypedFormControl(
         this.editObject ? this.editObject.address?.district : '',
         [Validators.maxLength(32)]
       ),
-      city: new FormControl(
+      city: new UntypedFormControl(
         this.editObject ? this.editObject.address?.city : '',
         [Validators.maxLength(32)]
       ),
-      state: new FormControl('', []),
-      cep: new FormControl(
+      state: new UntypedFormControl('', []),
+      cep: new UntypedFormControl(
         this.editObject ? this.editObject.address?.cep : '',
         [Validators.maxLength(8)]
       ),

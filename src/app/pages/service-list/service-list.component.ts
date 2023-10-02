@@ -5,7 +5,7 @@ import { PaginatorService } from 'src/app/services/paginator/paginator.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { catchError, map, merge, startWith, switchMap } from 'rxjs';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { ServiceService } from 'src/app/services/service/service.service';
 import { Service } from 'src/app/models/Service';
 import { PhoneNumber } from 'src/app/utils/format-phonenumber';
@@ -20,17 +20,17 @@ export class ServiceListComponent implements OnInit, AfterViewInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  form: FormGroup;
+  form: UntypedFormGroup;
   listLength = 10;
   listServices: Service[] = [];
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private service: ServiceService,
     private paginatorService: PaginatorService
   ) {
     this.form = this.fb.group({
-      search: new FormControl(''),
+      search: new UntypedFormControl(''),
     });
   }
 

@@ -2,7 +2,7 @@ import { PhoneNumber } from './../../utils/format-phonenumber';
 import { Supplier } from './../../models/Supplier';
 import { SupplierService } from './../../services/supplier/supplier.service';
 import { Router } from '@angular/router';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { PaginatorService } from './../../services/paginator/paginator.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
@@ -31,7 +31,7 @@ export class SupplierListComponent implements OnInit {
   verticalPosition: MatSnackBarVerticalPosition = 'top';
   listLength = 10;
   listSuppliers: Supplier[] = [];
-  form: FormGroup;
+  form: UntypedFormGroup;
   displayedColumns: string[] = [
     'id',
     'name',
@@ -45,12 +45,12 @@ export class SupplierListComponent implements OnInit {
   constructor(
     private paginatorService: PaginatorService,
     private service: SupplierService,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private router: Router,
     private _snackBar: MatSnackBar
   ) {
     this.form = this.fb.group({
-      search: new FormControl(''),
+      search: new UntypedFormControl(''),
       // categoriesCheck: new FormControl(false),
       // mediasCheck: new FormControl(false),
     });
