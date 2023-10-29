@@ -94,15 +94,15 @@
           <mat-header-cell *matHeaderCellDef>Valor</mat-header-cell>
           <mat-cell *matCellDef="let element">
             <span class="mobile-label">Valor:</span>
-            {{ element.price | currency : "RS" }}
+            {{ element.price | currency : "RS " }}
           </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="averageTime">
-          <mat-header-cell *matHeaderCellDef>Duração</mat-header-cell>
+          <mat-header-cell *matHeaderCellDef>Duração (horas)</mat-header-cell>
           <mat-cell *matCellDef="let element">
             <span class="mobile-label">Duração:</span>
-            {{ element.averageTime }}
+            {{ element.averageTime | number : "1.2" }}
           </mat-cell>
         </ng-container>
 

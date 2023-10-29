@@ -56,13 +56,14 @@ export class ServicingCreateComponent implements OnInit, AfterContentInit {
   fruitCtrl = new UntypedFormControl();
   filteredFruits: Observable<string[]>;
   filteredProfessionals: Observable<string[]>;
-  filteredProducts: Observable<string[]>;
+  // filteredProducts: Observable<string[]>;
   fruits: string[] = [];
   professionals: string[] = [];
   products: string[] = [];
   allFruits: string[] = ['Apple', 'Lemon', 'Lime', 'Orange', 'Strawberry'];
   allProfessionals: string[] = [];
   allProducts: string[] = [];
+  listProfessionals: any[] = [];
 
   @ViewChild('fruitInput') fruitInput: ElementRef<HTMLInputElement> | undefined;
   @ViewChild('professionalInput') professionalInput:
@@ -76,8 +77,6 @@ export class ServicingCreateComponent implements OnInit, AfterContentInit {
     private fb: UntypedFormBuilder,
     private service: ServicingService,
     private serviceUser: UserService,
-    private serviceProduct: ProductService,
-    private unitOfMeasureService: UnitOfMeasureService,
     private _snackBar: MatSnackBar,
     private router: Router,
     public dialog: MatDialog
@@ -116,7 +115,7 @@ export class ServicingCreateComponent implements OnInit, AfterContentInit {
         this.editObject ? this.editObject.active : null
       ),
       professionalList: new UntypedFormControl('', [Validators.required]),
-      consumedServicings: new UntypedFormControl('', [Validators.required]),
+      // consumedServicings: new UntypedFormControl('', [Validators.required]),
     });
 
     this.filteredFruits = this.fruitCtrl.valueChanges.pipe(
@@ -135,14 +134,14 @@ export class ServicingCreateComponent implements OnInit, AfterContentInit {
         )
       );
 
-    this.filteredProducts = this.servicingForm
-      .get('consumedServicings')!
-      .valueChanges.pipe(
-        startWith(null),
-        map((prod: string | null) =>
-          prod ? this._filterProducts(prod) : this.allProducts.slice()
-        )
-      );
+    // this.filteredProducts = this.servicingForm
+    //   .get('consumedServicings')!
+    //   .valueChanges.pipe(
+    //     startWith(null),
+    //     map((prod: string | null) =>
+    //       prod ? this._filterProducts(prod) : this.allProducts.slice()
+    //     )
+    //   );
   }
 
   ngAfterContentInit(): void {}
@@ -205,19 +204,19 @@ export class ServicingCreateComponent implements OnInit, AfterContentInit {
     this.servicingForm.get('professionalList')!.setValue(null);
   }
 
-  addProduct(event: MatChipInputEvent): void {
-    const value = (event.value || '').trim();
+  // addProduct(event: MatChipInputEvent): void {
+  //   const value = (event.value || '').trim();
 
-    // Add our fruit
-    if (value) {
-      this.fruits.push(value);
-    }
+  //   // Add our fruit
+  //   if (value) {
+  //     this.fruits.push(value);
+  //   }
 
-    // Clear the input value
-    event.chipInput!.clear();
+  //   // Clear the input value
+  //   event.chipInput!.clear();
 
-    this.servicingForm.get('consumedServicings')!.setValue(null);
-  }
+  //   this.servicingForm.get('consumedServicings')!.setValue(null);
+  // }
 
   remove(fruit: string): void {
     const index = this.fruits.indexOf(fruit);
@@ -255,11 +254,11 @@ export class ServicingCreateComponent implements OnInit, AfterContentInit {
     this.servicingForm.get('professionalList')!.setValue(null);
   }
 
-  selectedProduct(event: MatAutocompleteSelectedEvent): void {
-    this.products.push(event.option.viewValue);
-    this.productInput!.nativeElement.value = '';
-    this.servicingForm.get('consumedServicings')!.setValue(null);
-  }
+  // selectedProduct(event: MatAutocompleteSelectedEvent): void {
+  //   this.products.push(event.option.viewValue);
+  //   this.productInput!.nativeElement.value = '';
+  //   this.servicingForm.get('consumedServicings')!.setValue(null);
+  // }
 
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
@@ -300,10 +299,10 @@ export class ServicingCreateComponent implements OnInit, AfterContentInit {
       next: (response: HttpResponse<UserResponse>) => {
         this.blockUI.stop();
 
-        const listProfessionals: any = response.body?.data;
+        this.listProfessionals = response.body?.data;
 
-        for (let i = 0; i < listProfessionals?.length; i++) {
-          this.allProfessionals!.push(listProfessionals[i].name);
+        for (let i = 0; i < this.listProfessionals?.length; i++) {
+          this.allProfessionals!.push(this.listProfessionals[i].name);
         }
       },
       error: (err) => {
@@ -318,10 +317,6 @@ export class ServicingCreateComponent implements OnInit, AfterContentInit {
     });
   }
 
-  selectedServicing(event: MatAutocompleteSelectedEvent) {
-    // this.selectedSupplier = event.option.value;
-  }
-
   displayFn(option: any) {
     return option ? option.name : undefined;
   }
@@ -330,17 +325,24 @@ export class ServicingCreateComponent implements OnInit, AfterContentInit {
     return option.name;
   }
 
-  // _filter(value: string) {
-  //   return this.serviceSupplier
-  //     .listSupplier(0, 10, typeof value == 'string' ? value : '', true)
-  //     .pipe(
-  //       map((data) => {
-  //         return data.body.data;
-  //       })
-  //     );
-  // }
+  getProfessionalsFromForm(professionals: string[]): any[] {
+    let array = [];
+
+    for (let i = 0; i < professionals.length; i++) {
+      const element = professionals[i];
+      array.push(this.listProfessionals.find((x) => x.name === element));
+    }
+
+    return array;
+  }
 
   createServicing() {
+    console.log(this.servicingForm);
+
+    this.servicingForm
+      .get('professionalList')
+      .setValue(this.getProfessionalsFromForm(this.professionals));
+
     if (this.servicingForm.valid) {
       this.blockUI.start();
 
@@ -352,13 +354,20 @@ export class ServicingCreateComponent implements OnInit, AfterContentInit {
       servicing.preService = this.servicingForm.value.preService;
       servicing.postService = this.servicingForm.value.postService;
       servicing.returnDays = this.servicingForm.value.returnDays;
-      servicing.professionalList = this.servicingForm.value.professionalList;
-      servicing.consumedProducts = this.consumedProducts;
+      servicing.professionalList = this.getProfessionalsFromForm(
+        this.professionals
+      );
+
+      console.log(servicing);
+
+      // servicing.consumedProducts = this.consumedProducts;
 
       const requestServicing = new Servicing(servicing);
 
       if (this.editObject) {
         requestServicing.active = this.servicingForm.value.active;
+        requestServicing.id = this.editObject.id;
+        console.log('aaa');
 
         this.editServicing(this.editObject.id!, requestServicing);
       } else {

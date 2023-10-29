@@ -10,7 +10,7 @@ export class DefaultLayoutComponent implements OnInit {
     {
       name: 'Home',
       icon: 'home',
-      url: '/client-list',
+      url: '/home',
     },
     {
       name: 'Agendamentos',

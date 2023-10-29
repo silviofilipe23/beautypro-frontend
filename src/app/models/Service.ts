@@ -1,7 +1,7 @@
-import { Client } from "./Client";
-import { Servicing } from "./Servicing";
-import { TermOfConsent } from "./TermOfConsent";
-import { User } from "./User";
+import { Client } from './Client';
+import { Servicing } from './Servicing';
+import { TermOfConsent } from './TermOfConsent';
+import { User } from './User';
 
 export class Service {
   id: number | undefined;
@@ -15,4 +15,5 @@ export class Service {
   servicing: Servicing | undefined;
   user: User | undefined;
   open: boolean | undefined;
+  appointmentTime: number | undefined;
 }

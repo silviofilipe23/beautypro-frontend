@@ -5,10 +5,15 @@ import { PaginatorService } from 'src/app/services/paginator/paginator.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { catchError, map, merge, startWith, switchMap } from 'rxjs';
-import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
+import {
+  UntypedFormBuilder,
+  UntypedFormControl,
+  UntypedFormGroup,
+} from '@angular/forms';
 import { ServiceService } from 'src/app/services/service/service.service';
 import { Service } from 'src/app/models/Service';
 import { PhoneNumber } from 'src/app/utils/format-phonenumber';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-service-list',
@@ -27,7 +32,8 @@ export class ServiceListComponent implements OnInit, AfterViewInit {
   constructor(
     private fb: UntypedFormBuilder,
     private service: ServiceService,
-    private paginatorService: PaginatorService
+    private paginatorService: PaginatorService,
+    private router: Router
   ) {
     this.form = this.fb.group({
       search: new UntypedFormControl(''),
@@ -144,6 +150,12 @@ export class ServiceListComponent implements OnInit, AfterViewInit {
     } else {
       return '';
     }
+  }
+
+  reschedule(item: Service): void {
+    this.router.navigateByUrl('/service-edit', {
+      state: { editObject: item },
+    });
   }
 }
 

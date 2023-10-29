@@ -220,6 +220,8 @@ export class ClientCreateComponent implements OnInit, AfterContentInit {
   getAnamnese(string: string) {
     const array = string.split(',');
     this.anamneses = array.filter((a) => a !== '');
+
+    this.clientForm.get('anamnese').setValue(this.anamneses);
   }
 
   createClient() {
@@ -253,8 +255,8 @@ export class ClientCreateComponent implements OnInit, AfterContentInit {
       client.address = address;
 
       const requestClient = new Client(client);
-
-      if (this.editObject) {
+      console.log(this.editObject === null);
+      if (this.editObject.id !== null) {
         requestClient.active = this.clientForm.value.active;
 
         this.editClient(this.editObject.id!, requestClient);

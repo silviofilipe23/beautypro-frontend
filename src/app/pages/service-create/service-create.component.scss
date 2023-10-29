@@ -5,4 +5,15 @@
   width: 100% !important;
   padding: 15px;
   border-radius: 15px;
+
+  .actions-buttons {
+    button {
+      width: 210px;
+    }
+  }
+
+  textArea {
+    height: 120px;
+    resize: none;
+  }
 }

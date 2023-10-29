@@ -205,6 +205,16 @@ const routes: Routes = [
     ],
   },
   {
+    path: 'service-edit',
+    component: DefaultLayoutComponent,
+    children: [
+      {
+        path: '',
+        component: ServiceCreateComponent,
+      },
+    ],
+  },
+  {
     path: 'servicing-list',
     component: DefaultLayoutComponent,
     children: [
