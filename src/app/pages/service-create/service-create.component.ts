@@ -268,14 +268,13 @@ export class ServiceCreateComponent implements OnInit {
       appointment.termOfConsent = null;
 
       console.log(this.editObject);
+      appointment.open = true;
 
       if (this.editObject !== undefined) {
         appointment.id = this.editObject.id;
 
         this.editAppointment(this.editObject.id!, appointment);
       } else {
-        appointment.open = false;
-
         this.createNewAppointment(appointment);
       }
     }

@@ -13,14 +13,16 @@ export class ServiceService {
     page: number,
     size: number,
     start: string | null,
-    end: string | null
+    end: string | null,
+    open: boolean | null
   ) {
     return this.http.get<any>(
       `${environment.urlBase}/services?` +
         (page !== null ? `page=${page}` : '') +
         (size !== null ? `&size=${size}` : '') +
         (start !== null ? `&start=${start}` : '') +
-        (end !== null ? `&end=${end}` : ''),
+        (end !== null ? `&end=${end}` : '') +
+        (open !== null ? `&open=${open}` : ''),
       { observe: 'response' }
     );
   }
@@ -48,6 +50,16 @@ export class ServiceService {
     return this.http.post<any>(
       `${environment.urlBase}/services`,
       newAppointment,
+      {
+        observe: 'response',
+      }
+    );
+  }
+
+  createBase64Signature(id: number, base64Signature: any) {
+    return this.http.post<any>(
+      `${environment.urlBase}/services/signature?id=${id}`,
+      base64Signature,
       {
         observe: 'response',
       }

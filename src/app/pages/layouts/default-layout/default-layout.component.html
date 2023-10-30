@@ -60,17 +60,20 @@
           <mat-icon color="primary" class="material-icons-outlined"
             >person_outline</mat-icon
           >
-          <span>Larissa Danielle</span>
+          <span>{{ user.username }}</span>
         </button>
-        <button mat-menu-item>
+
+        <!-- <button mat-menu-item>
           <mat-icon class="material-icons-outlined">account_box</mat-icon>
           <span>Perfil</span>
-        </button>
-        <button mat-menu-item disabled>
+        </button> -->
+
+        <!-- <button mat-menu-item disabled>
           <mat-icon class="material-icons-outlined">vpn_key</mat-icon>
           <span>Alterar Senha</span>
-        </button>
-        <button mat-menu-item>
+        </button> -->
+
+        <button mat-menu-item (click)="logout()">
           <mat-icon>logout</mat-icon>
           <span>Sair</span>
         </button>

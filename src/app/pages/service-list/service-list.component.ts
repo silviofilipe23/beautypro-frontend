@@ -1,6 +1,4 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
-import { HttpResponse } from '@angular/common/http';
-import { MatTableDataSource } from '@angular/material/table';
 import { PaginatorService } from 'src/app/services/paginator/paginator.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
@@ -14,6 +12,13 @@ import { ServiceService } from 'src/app/services/service/service.service';
 import { Service } from 'src/app/models/Service';
 import { PhoneNumber } from 'src/app/utils/format-phonenumber';
 import { Router } from '@angular/router';
+import { DialogCancelComponent } from 'src/app/components/dialog-cancel/dialog-cancel.component';
+import { MatDialog } from '@angular/material/dialog';
+import {
+  MatSnackBar,
+  MatSnackBarHorizontalPosition,
+  MatSnackBarVerticalPosition,
+} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-service-list',
@@ -26,14 +31,19 @@ export class ServiceListComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   form: UntypedFormGroup;
+  today = new Date();
   listLength = 10;
   listServices: Service[] = [];
+  horizontalPosition: MatSnackBarHorizontalPosition = 'right';
+  verticalPosition: MatSnackBarVerticalPosition = 'top';
 
   constructor(
     private fb: UntypedFormBuilder,
     private service: ServiceService,
     private paginatorService: PaginatorService,
-    private router: Router
+    private router: Router,
+    public dialog: MatDialog,
+    private _snackBar: MatSnackBar
   ) {
     this.form = this.fb.group({
       search: new UntypedFormControl(''),
@@ -72,7 +82,8 @@ export class ServiceListComponent implements OnInit, AfterViewInit {
             this.paginator.pageIndex,
             this.paginator.pageSize,
             todayStart.toISOString(),
-            todayEnd.toISOString()
+            todayEnd.toISOString(),
+            true
           ).pipe(catchError(() => observableOf(null)));
         }),
         map((data: any) => {
@@ -115,7 +126,8 @@ export class ServiceListComponent implements OnInit, AfterViewInit {
             this.paginator.pageIndex,
             this.paginator.pageSize,
             todayStart.toISOString(),
-            todayEnd.toISOString()
+            todayEnd.toISOString(),
+            true
           ).pipe(catchError(() => observableOf(null)));
         }),
         map((data: any) => {
@@ -155,6 +167,64 @@ export class ServiceListComponent implements OnInit, AfterViewInit {
   reschedule(item: Service): void {
     this.router.navigateByUrl('/service-edit', {
       state: { editObject: item },
+    });
+  }
+
+  startService(item: Service): void {
+    this.router.navigateByUrl('/service-start', {
+      state: { appointment: item },
+    });
+  }
+
+  // modal de cancelamento
+  cancel(item: Service) {
+    const dialogRef = this.dialog.open(DialogCancelComponent, {
+      width: '400px',
+      disableClose: true,
+      autoFocus: false,
+      data: {
+        title: 'Cancelar Agendamento',
+        text: 'Tem certeza que deseja cancelar este agendamento? Lembrando que esta ação é irreversível!',
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((_result) => {
+      console.log(_result);
+
+      if (_result) {
+        item.open = false;
+        item.appointmentTime = 0;
+
+        this.editAppointment(item.id, item);
+      }
+    });
+  }
+
+  // realizar o cancelamento da agenda atravez do serviço
+  editAppointment(id: number, editAppointment: any) {
+    this.service.updateAppointment(id, editAppointment).subscribe({
+      next: (response: any) => {
+        this.blockUI.stop();
+
+        if (response.status == 200) {
+          this._snackBar.open('Cancelamento realizado com sucesso!', 'Fechar', {
+            duration: 5000,
+            horizontalPosition: this.horizontalPosition,
+            verticalPosition: this.verticalPosition,
+            panelClass: ['error-snackbar'],
+          });
+          this.getListServices();
+        }
+      },
+      error: (err) => {
+        this.blockUI.stop();
+        this._snackBar.open(err.error?.message, 'Fechar', {
+          duration: 5000,
+          horizontalPosition: this.horizontalPosition,
+          verticalPosition: this.verticalPosition,
+          panelClass: ['error-snackbar'],
+        });
+      },
     });
   }
 }

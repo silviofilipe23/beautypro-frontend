@@ -9,7 +9,7 @@
     <div class="col-md-12 my-1 my-md-3">
       <form [formGroup]="form">
         <div class="row">
-          <div class="col-md-4 py-1 py-md-3">
+          <div class="col-md-8 col-lg-4 py-1 py-md-3">
             <mat-form-field appearance="outline" style="width: 100%">
               <mat-label>Dia do Atendimento</mat-label>
               <input
@@ -47,8 +47,9 @@
               <mat-icon>search</mat-icon>
             </button>
           </div>
+
           <div
-            class="col-md-6 py-1 py-md-3 text-end py-3 d-flex align-items-end flex-column"
+            class="col-md-2 py-1 py-md-3 text-end py-3 d-flex align-items-end flex-column"
           >
             <a
               mat-raised-button
@@ -99,11 +100,33 @@
         </mat-card-content>
 
         <mat-card-actions align="end">
-          <button mat-raised-button color="primary" (click)="reschedule(item)">
+          <button
+            mat-raised-button
+            color="accent"
+            (click)="cancel(item)"
+            *ngIf="item.base64Signature === null"
+          >
+            CANCELAR
+          </button>
+          <button
+            mat-raised-button
+            color="primary"
+            (click)="reschedule(item)"
+            *ngIf="item.base64Signature === null"
+          >
             REAGENDAR
           </button>
-          <button mat-raised-button color="primary">VISUALIZAR</button>
-          <!-- <button mat-raised-button color="primary">INICIAR</button> -->
+          <button
+            mat-raised-button
+            color="primary"
+            (click)="startService(item)"
+          >
+            {{
+              item.base64Signature !== null
+                ? "CONTINUAR ATENDIMENTO"
+                : "INICIAR ATENDIMENTO"
+            }}
+          </button>
         </mat-card-actions>
       </mat-card>
     </div>

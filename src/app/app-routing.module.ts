@@ -18,6 +18,8 @@ import { ServiceListComponent } from './pages/service-list/service-list.componen
 import { ServicingListComponent } from './pages/servicing-list/servicing-list.component';
 import { ServicingCreateComponent } from './pages/servicing-create/servicing-create.component';
 import { ServiceCreateComponent } from './pages/service-create/service-create.component';
+import { ServiceStartComponent } from './pages/service-start/service-start.component';
+import { AcceptTermsOfConsentComponent } from './pages/accept-terms-of-consent/accept-terms-of-consent.component';
 
 const routes: Routes = [
   {
@@ -201,6 +203,26 @@ const routes: Routes = [
       {
         path: '',
         component: ServiceCreateComponent,
+      },
+    ],
+  },
+  {
+    path: 'service-start',
+    component: DefaultLayoutComponent,
+    children: [
+      {
+        path: '',
+        component: ServiceStartComponent,
+      },
+    ],
+  },
+  {
+    path: 'accept-terms',
+    component: DefaultLayoutComponent,
+    children: [
+      {
+        path: '',
+        component: AcceptTermsOfConsentComponent,
       },
     ],
   },

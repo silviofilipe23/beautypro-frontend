@@ -20,6 +20,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import {
   MatNativeDateModule,
   MatRippleModule,
@@ -67,6 +68,12 @@ import { ServicingListComponent } from './pages/servicing-list/servicing-list.co
 import { ServicingCreateComponent } from './pages/servicing-create/servicing-create.component';
 import { ServiceCreateComponent } from './pages/service-create/service-create.component';
 import { AddProductDialogComponent } from './components/add-product-dialog/add-product-dialog.component';
+import { SignatureAreaComponent } from './components/signature-area/signature-area.component';
+import { DialogCancelComponent } from './components/dialog-cancel/dialog-cancel.component';
+import { ServiceStartComponent } from './pages/service-start/service-start.component';
+import { DialogTermOfConsentComponent } from './components/dialog-term-of-consent/dialog-term-of-consent.component';
+import { SharedModule } from './shared/shared.module';
+import { AcceptTermsOfConsentComponent } from './pages/accept-terms-of-consent/accept-terms-of-consent.component';
 
 export const MY_FORMATS: MatDateFormats = {
   parse: {
@@ -102,6 +109,11 @@ export const MY_FORMATS: MatDateFormats = {
     ServicingCreateComponent,
     ServiceCreateComponent,
     AddProductDialogComponent,
+    SignatureAreaComponent,
+    DialogCancelComponent,
+    ServiceStartComponent,
+    DialogTermOfConsentComponent,
+    AcceptTermsOfConsentComponent,
   ],
   imports: [
     BrowserModule,
@@ -136,6 +148,8 @@ export const MY_FORMATS: MatDateFormats = {
     MatAutocompleteModule,
     MatChipsModule,
     MatCardModule,
+    SharedModule,
+    MatCheckboxModule,
   ],
   providers: [
     {

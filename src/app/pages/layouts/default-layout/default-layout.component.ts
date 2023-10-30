@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { User } from 'src/app/models/User';
 
 @Component({
   selector: 'app-default-layout',
@@ -6,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./default-layout.component.scss'],
 })
 export class DefaultLayoutComponent implements OnInit {
+  user: any;
   menus = [
     {
       name: 'Home',
@@ -44,7 +47,20 @@ export class DefaultLayoutComponent implements OnInit {
     },
   ];
 
-  constructor() {}
+  constructor(private router: Router) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.getUserLogged();
+  }
+
+  getUserLogged() {
+    this.user = JSON.parse(localStorage.getItem('USER_OBJECT'));
+  }
+
+  logout() {
+    localStorage.removeItem('USER_TOKEN');
+    localStorage.removeItem('USER_ROLES');
+    localStorage.removeItem('USER_OBJECT');
+    this.router.navigate(['/login']);
+  }
 }

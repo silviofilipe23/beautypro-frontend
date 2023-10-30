@@ -15,5 +15,7 @@ export class Service {
   servicing: Servicing | undefined;
   user: User | undefined;
   open: boolean | undefined;
+  serviceProvided: boolean | undefined;
   appointmentTime: number | undefined;
+  base64Signature: string | undefined;
 }

@@ -1,0 +1,92 @@
+<div class="bg-text">
+  <h1 mat-dialog-title>Ficha de Anamnese para Micropigmentação</h1>
+
+  <h2>Dados Pessoais</h2>
+
+  <p><strong>Nome completo:</strong> {{ appointment.client.name }}</p>
+
+  <p>
+    <strong>RG:</strong>
+    {{ appointment.client.rg }} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <strong>CPF:</strong>
+    {{ appointment.client.cpf }} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <strong>Data de nascimento:</strong>
+    {{ appointment.client.dateOfBirth | date : "dd/MM/yyyy" }}
+  </p>
+
+  <p>
+    <strong>Bairro:</strong>
+    {{ appointment.client.address.district }}
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <strong>Cidade:</strong>
+    {{ appointment.client.address.city.name }}
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <strong>Estado:</strong>
+    {{ appointment.client.address.city.uf.name }}
+  </p>
+
+  <p *ngIf="appointment.client.nameResponsible !== null">
+    <strong>Se for menor (responsável): </strong>
+    {{ appointment.client.nameResponsible }}
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <strong>RG:</strong> {{ appointment.client.rgResponsible }}
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <strong>CPF:</strong> {{ appointment.client.cpfResponsible }}
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  </p>
+
+  <p>
+    <strong>Whatsapp:</strong> {{ appointment.client.phoneNumber | phone }}
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <strong>E-mail:</strong> {{ appointment.client.email }}
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  </p>
+
+  <h2>Anamnese</h2>
+
+  <div class="row">
+    <div class="col-md-4" *ngFor="let item of anamneselist; index as i">
+      <mat-checkbox
+        class="example-margin"
+        [(ngModel)]="item.checked"
+        [disabled]="true"
+      >
+        {{ item.name }}
+      </mat-checkbox>
+    </div>
+  </div>
+
+  <p class="mt-3" style="text-align: justify">
+    A micropigmentação é a técnica de implantação de pigmentos na camada da
+    derme da pele, com auxilio de um equipamento chamado dermógrado e/ou tebori,
+    tendo como finalidade a correção e o embelezamento estético tanto das
+    sobrancelhas, lábios, olhos, aréolas, estrias e capilar. <br />
+    Por ser superficial e ter um efeito natural, o procedimento deverá ser
+    refeito após alguns meses.<br />
+    Tratando-se de uma técnica superficial, será necessária a realização de um
+    retoque a partir de 30 dias da primeira aplicação, já que neste período será
+    percebido um clareamento, bem como o aparecimento de falhas.<br />
+    Lembrar que para sua remoção, os métodos são invasivos, por isso ressaltamos
+    a importância da avaliação e aprovação do desenho, cor e técnica
+    indicados.<br />
+    Em casos de correções em trabalhos assimétricos e/ou cores alteradas,
+    deve-se observar que se trata de um procedimento lento com intervalos de 30
+    dias entre as aplicações.<br />
+    Os resultados parecerão mais suaves quando a área estiver cicatrizada.<br />
+    Frequente bronzeamento, exposição ao sol e tratamentos de pele enfraquecerão
+    o pigmento rapidamente. Eu reconheço que a obtenção do procedimento da
+    micropigmentação é de minha escolha e eu concito com a aplicação do
+    procedimento.<br />
+    Autorizo o registro fotográfico do "antes" e "depois" para documentação e
+    divulgação profissional.<br />
+    As declarações, que constam nessa ficha de anamnese são verdadeiras, não
+    cabendo ao profissional a responsabilidade por informações omitidas nessa
+    avaliação.<br />
+    Fui orientada pela profissional e comprometo-me a seguir todos os cuidados
+    necessários após o procedimento.<br />
+  </p>
+
+  <p>Em: {{ appointment.dateHour | date : "dd/MM/YYYY" }}</p>
+
+  <app-signature-area></app-signature-area>
+</div>
