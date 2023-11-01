@@ -100,9 +100,11 @@
             <input
               matInput
               type="number"
-              maxlength="255"
               placeholder="Valor do serviço"
               formControlName="price"
+              min="0.00"
+              max="10000.00"
+              step="1.00"
             />
             <mat-error
               *ngIf="servicingForm.controls['price'].hasError('required')"

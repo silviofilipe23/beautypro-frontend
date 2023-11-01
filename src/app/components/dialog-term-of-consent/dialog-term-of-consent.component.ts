@@ -163,7 +163,9 @@ export class DialogTermOfConsentComponent implements OnInit {
   }
 
   closeModal() {
-    this.dialogRef.close(true);
+    this.dialogRef.close({
+      accept: true,
+    });
   }
 
   getAnamneseChecked() {

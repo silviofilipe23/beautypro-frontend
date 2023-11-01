@@ -16,4 +16,12 @@
     height: 120px;
     resize: none;
   }
+
+  @media screen and (max-width: 428px) {
+    .actions-buttons {
+      button {
+        width: 100%;
+      }
+    }
+  }
 }

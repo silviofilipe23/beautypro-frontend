@@ -1,0 +1,18 @@
+@import "../../../my-theme.scss";
+
+#serviceStarted {
+  background-color: white;
+  width: 100% !important;
+  padding: 15px;
+  border-radius: 15px;
+
+  button {
+    width: 200px;
+  }
+
+  @media screen and (max-width: 834px) {
+    button {
+      width: 100%;
+    }
+  }
+}

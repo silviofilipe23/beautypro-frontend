@@ -84,4 +84,25 @@
       padding: 8px 24px;
     }
   }
+
+  @media screen and (max-width: 428px) {
+    .mat-card-actions {
+      button {
+        width: 100%;
+      }
+    }
+
+    .mat-card-actions-align-end {
+      display: flex;
+      justify-content: flex-start;
+      flex-direction: column;
+    }
+
+    .mat-card-actions .mat-button,
+    .mat-card-actions .mat-raised-button,
+    .mat-card-actions .mat-stroked-button {
+      margin: 0;
+      margin-bottom: 10px;
+    }
+  }
 }

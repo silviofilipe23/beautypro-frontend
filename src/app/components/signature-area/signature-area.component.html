@@ -1,11 +1,49 @@
 <canvas
+  class="desktop"
+  width="735"
   height="200"
   #canvasElement
   (mousedown)="onMouseDown($event)"
   (mouseup)="onMouseUp()"
   (mousemove)="onMouseMove($event)"
 ></canvas>
-<div class="col-md-12 my-1" *ngIf="showButtons">
+<div class="col-md-12 my-1 desktop" *ngIf="showButtons">
+  <button mat-raised-button color="accent" (click)="clearCanvas()" class="me-3">
+    Limpar
+  </button>
+  <button mat-raised-button color="primary" (click)="saveSignature()">
+    Salvar Assinatura
+  </button>
+</div>
+
+<canvas
+  class="tablet"
+  width="619"
+  height="200"
+  #canvasElement
+  (mousedown)="onMouseDown($event)"
+  (mouseup)="onMouseUp()"
+  (mousemove)="onMouseMove($event)"
+></canvas>
+<div class="col-md-12 my-1 tablet" *ngIf="showButtons">
+  <button mat-raised-button color="accent" (click)="clearCanvas()" class="me-3">
+    Limpar
+  </button>
+  <button mat-raised-button color="primary" (click)="saveSignature()">
+    Salvar Assinatura
+  </button>
+</div>
+
+<canvas
+  class="mobile"
+  width="294"
+  height="200"
+  #canvasElement
+  (mousedown)="onMouseDown($event)"
+  (mouseup)="onMouseUp()"
+  (mousemove)="onMouseMove($event)"
+></canvas>
+<div class="col-md-12 my-1 mobile" *ngIf="showButtons">
   <button mat-raised-button color="accent" (click)="clearCanvas()" class="me-3">
     Limpar
   </button>

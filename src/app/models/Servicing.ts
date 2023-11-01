@@ -1,5 +1,4 @@
 import { ConsumedProducts } from './ConsumedProducts';
-import { Product } from './Product';
 import { User } from './User';
 
 export class Servicing {

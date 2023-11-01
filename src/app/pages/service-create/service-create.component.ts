@@ -250,6 +250,7 @@ export class ServiceCreateComponent implements OnInit {
     if (this.serviceForm.valid) {
       this.blockUI.start();
       let appointment = new Service();
+      console.log(this.serviceForm.value.user);
 
       appointment.client = this.serviceForm.value.client;
       appointment.user = this.serviceForm.value.user;
