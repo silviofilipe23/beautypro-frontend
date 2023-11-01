@@ -10,7 +10,11 @@ import { catchError, map, merge, startWith, switchMap } from 'rxjs';
 import { ClientService } from 'src/app/services/client/client.service';
 import { CPF } from 'src/app/utils/format-cpf';
 import { PhoneNumber } from 'src/app/utils/format-phonenumber';
-import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
+import {
+  UntypedFormBuilder,
+  UntypedFormControl,
+  UntypedFormGroup,
+} from '@angular/forms';
 
 @Component({
   selector: 'app-client-list',
@@ -141,6 +145,12 @@ export class ClientListComponent implements OnInit, AfterViewInit {
   goToEditClient(item: Client) {
     this.router.navigateByUrl('/client-edit', {
       state: { editObject: item },
+    });
+  }
+
+  goToEditServicesClient(item: Client) {
+    this.router.navigateByUrl('/client-service-list', {
+      state: { client: item },
     });
   }
 }

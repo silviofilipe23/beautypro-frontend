@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { User } from 'src/app/models/User';
 
 @Component({
   selector: 'app-default-layout',
@@ -19,6 +18,11 @@ export class DefaultLayoutComponent implements OnInit {
       name: 'Agendamentos',
       icon: 'event',
       url: '/service-list',
+    },
+    {
+      name: 'Atendimentos',
+      icon: 'calendar_month',
+      url: '/service-list-all',
     },
     {
       name: 'Serviços',

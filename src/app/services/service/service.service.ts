@@ -65,4 +65,14 @@ export class ServiceService {
       }
     );
   }
+
+  listServiceClient(page: number, size: number, id: number | null) {
+    return this.http.get<any>(
+      `${environment.urlBase}/services/by-client?` +
+        (page !== null ? `page=${page}` : '') +
+        (size !== null ? `&size=${size}` : '') +
+        (id !== null ? `&id=${id}` : ''),
+      { observe: 'response' }
+    );
+  }
 }

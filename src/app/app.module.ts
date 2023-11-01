@@ -74,6 +74,8 @@ import { ServiceStartComponent } from './pages/service-start/service-start.compo
 import { DialogTermOfConsentComponent } from './components/dialog-term-of-consent/dialog-term-of-consent.component';
 import { SharedModule } from './shared/shared.module';
 import { AcceptTermsOfConsentComponent } from './pages/accept-terms-of-consent/accept-terms-of-consent.component';
+import { ClientServicesListComponent } from './pages/client-services-list/client-services-list.component';
+import { ServiceListAllComponent } from './pages/service-list-all/service-list-all.component';
 
 export const MY_FORMATS: MatDateFormats = {
   parse: {
@@ -114,6 +116,8 @@ export const MY_FORMATS: MatDateFormats = {
     ServiceStartComponent,
     DialogTermOfConsentComponent,
     AcceptTermsOfConsentComponent,
+    ClientServicesListComponent,
+    ServiceListAllComponent,
   ],
   imports: [
     BrowserModule,

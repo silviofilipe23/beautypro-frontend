@@ -20,6 +20,8 @@ import { ServicingCreateComponent } from './pages/servicing-create/servicing-cre
 import { ServiceCreateComponent } from './pages/service-create/service-create.component';
 import { ServiceStartComponent } from './pages/service-start/service-start.component';
 import { AcceptTermsOfConsentComponent } from './pages/accept-terms-of-consent/accept-terms-of-consent.component';
+import { ClientServicesListComponent } from './pages/client-services-list/client-services-list.component';
+import { ServiceListAllComponent } from './pages/service-list-all/service-list-all.component';
 
 const routes: Routes = [
   {
@@ -100,6 +102,16 @@ const routes: Routes = [
       {
         path: '',
         component: ClientListComponent,
+      },
+    ],
+  },
+  {
+    path: 'client-service-list',
+    component: DefaultLayoutComponent,
+    children: [
+      {
+        path: '',
+        component: ClientServicesListComponent,
       },
     ],
   },
@@ -193,6 +205,16 @@ const routes: Routes = [
       {
         path: '',
         component: ServiceListComponent,
+      },
+    ],
+  },
+  {
+    path: 'service-list-all',
+    component: DefaultLayoutComponent,
+    children: [
+      {
+        path: '',
+        component: ServiceListAllComponent,
       },
     ],
   },
