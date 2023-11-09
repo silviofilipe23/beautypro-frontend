@@ -2,15 +2,14 @@
   <mat-drawer #drawer mode="over">
     <mat-list>
       <div>
-        <div class="logo-sidenav">
+        <div class="logo-sidenav text-center">
           <img
-            class=""
             src="../../../../assets/logo1.png"
             alt="logo"
             routerLink="/home"
           />
         </div>
-        <div class="mt-5">
+        <div class="mt-3">
           <mat-list-item
             *ngFor="let menu of menus"
             [routerLink]="menu.url"
@@ -62,16 +61,6 @@
           >
           <span>{{ user.username }}</span>
         </button>
-
-        <!-- <button mat-menu-item>
-          <mat-icon class="material-icons-outlined">account_box</mat-icon>
-          <span>Perfil</span>
-        </button> -->
-
-        <!-- <button mat-menu-item disabled>
-          <mat-icon class="material-icons-outlined">vpn_key</mat-icon>
-          <span>Alterar Senha</span>
-        </button> -->
 
         <button mat-menu-item (click)="logout()">
           <mat-icon>logout</mat-icon>
