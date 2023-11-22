@@ -23,6 +23,12 @@ canvas {
   .mobile {
     display: none;
   }
+
+  canvas {
+    width: 100%;
+    overflow: hidden;
+    height: 400px;
+  }
 }
 
 @media screen and (max-width: 428px) {
@@ -39,5 +45,6 @@ canvas {
   canvas {
     width: 100%;
     overflow: hidden;
+    height: 400px;
   }
 }

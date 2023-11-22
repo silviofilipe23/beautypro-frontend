@@ -1,6 +1,6 @@
-<h1 mat-dialog-title>Ficha de Anamnese para Micropigmentação</h1>
-
 <mat-dialog-content>
+  <h1>Ficha de Anamnese para Micropigmentação</h1>
+
   <h2>Dados Pessoais</h2>
 
   <p><strong>Nome completo:</strong> {{ appointment.client.name }}</p>
@@ -95,19 +95,7 @@
   <p>Em: {{ appointment.dateHour | date : "dd/MM/YYYY" }}</p>
 
   <canvas #canvasElement></canvas>
-  <div class="col-md-12 my-1">
-    <button
-      mat-raised-button
-      color="accent"
-      (click)="clearCanvas()"
-      class="me-3"
-    >
-      Limpar
-    </button>
-    <button mat-raised-button color="primary" (click)="createBase64()">
-      Salvar Assinatura
-    </button>
-  </div>
+  <div class="col-md-12 my-1"></div>
 
   <mat-dialog-actions align="end">
     <button
@@ -115,9 +103,22 @@
       mat-dialog-close
       color="accent"
       [routerLink]="['/service-list']"
+      class="me-1"
     >
       Cancelar
     </button>
+    <button
+      mat-raised-button
+      color="accent"
+      (click)="clearCanvas()"
+      class="me-1"
+    >
+      Limpar
+    </button>
+    <button mat-raised-button color="primary" (click)="createBase64()">
+      Salvar Assinatura
+    </button>
+
     <button
       mat-raised-button
       [mat-dialog-close]="true"

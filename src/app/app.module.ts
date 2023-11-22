@@ -68,7 +68,6 @@ import { ServicingListComponent } from './pages/servicing-list/servicing-list.co
 import { ServicingCreateComponent } from './pages/servicing-create/servicing-create.component';
 import { ServiceCreateComponent } from './pages/service-create/service-create.component';
 import { AddProductDialogComponent } from './components/add-product-dialog/add-product-dialog.component';
-import { SignatureAreaComponent } from './components/signature-area/signature-area.component';
 import { DialogCancelComponent } from './components/dialog-cancel/dialog-cancel.component';
 import { ServiceStartComponent } from './pages/service-start/service-start.component';
 import { DialogTermOfConsentComponent } from './components/dialog-term-of-consent/dialog-term-of-consent.component';
@@ -111,7 +110,6 @@ export const MY_FORMATS: MatDateFormats = {
     ServicingCreateComponent,
     ServiceCreateComponent,
     AddProductDialogComponent,
-    SignatureAreaComponent,
     DialogCancelComponent,
     ServiceStartComponent,
     DialogTermOfConsentComponent,

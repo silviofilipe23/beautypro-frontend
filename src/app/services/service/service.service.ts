@@ -12,12 +12,30 @@ export class ServiceService {
   listServices(
     page: number,
     size: number,
-    start: string | null,
-    end: string | null,
-    open: boolean | null
+    start?: string | null,
+    end?: string | null,
+    open?: boolean | null
   ) {
     return this.http.get<any>(
       `${environment.urlBase}/services?` +
+        (page !== null ? `page=${page}` : '') +
+        (size !== null ? `&size=${size}` : '') +
+        (start !== null ? `&start=${start}` : '') +
+        (end !== null ? `&end=${end}` : '') +
+        (open !== null ? `&open=${open}` : ''),
+      { observe: 'response' }
+    );
+  }
+
+  listServicesDesc(
+    page: number,
+    size: number,
+    start?: string | null,
+    end?: string | null,
+    open?: boolean | null
+  ) {
+    return this.http.get<any>(
+      `${environment.urlBase}/services/filter?` +
         (page !== null ? `page=${page}` : '') +
         (size !== null ? `&size=${size}` : '') +
         (start !== null ? `&start=${start}` : '') +
