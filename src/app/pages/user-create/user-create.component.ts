@@ -14,13 +14,9 @@ import {
   MatSnackBarVerticalPosition,
 } from '@angular/material/snack-bar';
 import { AfterContentInit, Component, OnInit } from '@angular/core';
-import { CepService } from 'src/app/services/cep/cep.service';
-import { PhoneNumber } from 'src/app/utils/format-phonenumber';
-import { PhoneInputComponent } from 'src/app/utils/formatePhone';
 import { StatesService } from 'src/app/services/states/states.service';
 import { User } from 'src/app/models/User';
 import { Address, City, State } from 'src/app/models/Address';
-import { ERole } from 'src/app/models/ERole';
 import { Role } from 'src/app/models/Role';
 
 @Component({
@@ -41,7 +37,6 @@ export class UserCreateComponent implements OnInit, AfterContentInit {
   constructor(
     private fb: UntypedFormBuilder,
     private service: UserService,
-    private serviceCep: CepService,
     private statesService: StatesService,
     private _snackBar: MatSnackBar,
     private router: Router
@@ -53,20 +48,19 @@ export class UserCreateComponent implements OnInit, AfterContentInit {
     }
 
     this.userForm = this.fb.group({
-      name: new UntypedFormControl(this.editObject ? this.editObject.name : '', [
-        Validators.required,
-        Validators.maxLength(128),
-      ]),
-      username: new UntypedFormControl(this.editObject ? this.editObject.name : '', [
-        Validators.maxLength(128),
-        Validators.required,
-      ]),
+      name: new UntypedFormControl(
+        this.editObject ? this.editObject.name : '',
+        [Validators.required, Validators.maxLength(128)]
+      ),
+      username: new UntypedFormControl(
+        this.editObject ? this.editObject.name : '',
+        [Validators.maxLength(128), Validators.required]
+      ),
       password: new UntypedFormControl('', [Validators.maxLength(128)]),
-      email: new UntypedFormControl(this.editObject ? this.editObject.email : '', [
-        Validators.email,
-        Validators.maxLength(64),
-        Validators.required,
-      ]),
+      email: new UntypedFormControl(
+        this.editObject ? this.editObject.email : '',
+        [Validators.email, Validators.maxLength(64), Validators.required]
+      ),
       phoneNumber: new UntypedFormControl(
         this.editObject ? this.editObject.phoneNumber : '',
         [Validators.required, Validators.maxLength(11)]
@@ -74,7 +68,12 @@ export class UserCreateComponent implements OnInit, AfterContentInit {
       observations: new UntypedFormControl(
         this.editObject ? this.editObject.observations : ''
       ),
-      active: new UntypedFormControl(this.editObject ? this.editObject.active : null),
+      active: new UntypedFormControl(
+        this.editObject ? this.editObject.active : null
+      ),
+      roles: new UntypedFormControl(
+        this.editObject ? this.editObject.roles[0].name : null
+      ),
       number: new UntypedFormControl(
         this.editObject ? this.editObject.address?.number : '',
         [Validators.maxLength(10)]
@@ -126,7 +125,13 @@ export class UserCreateComponent implements OnInit, AfterContentInit {
       user.email = this.userForm.value.email;
       user.phoneNumber = this.userForm.value.phoneNumber;
       user.observations = this.userForm.value.observations;
-      user.roles = [{ id: 2, name: 'ROLE_USER' }];
+
+      let role: Role = {
+        id: null,
+        name: this.userForm.value.roles,
+      };
+
+      user.roles = [role];
 
       let address = new Address();
 
@@ -144,10 +149,8 @@ export class UserCreateComponent implements OnInit, AfterContentInit {
       console.log(JSON.stringify(requestUser));
 
       if (this.editObject) {
-        console.log('skdopfkp');
-
         requestUser.active = this.userForm.value.active;
-        this.editUser(this.editObject.id!, requestUser);
+        this.editUser(this.editObject.id, requestUser);
       } else {
         requestUser.active = true;
         requestUser.password = this.userForm.value.password;
@@ -162,7 +165,7 @@ export class UserCreateComponent implements OnInit, AfterContentInit {
         this.blockUI.stop();
 
         if (response.status == 200) {
-          this._snackBar.open('Usere atualizado com sucesso.', 'Fechar', {
+          this._snackBar.open('Usuário atualizado com sucesso.', 'Fechar', {
             duration: 5000,
             horizontalPosition: this.horizontalPosition,
             verticalPosition: this.verticalPosition,
@@ -256,7 +259,7 @@ export class UserCreateComponent implements OnInit, AfterContentInit {
         this.blockUI.stop();
 
         if (response.status == 201) {
-          this._snackBar.open('Usere cadastrado com sucesso.', 'Fechar', {
+          this._snackBar.open('Usuário cadastrado com sucesso.', 'Fechar', {
             duration: 5000,
             horizontalPosition: this.horizontalPosition,
             verticalPosition: this.verticalPosition,

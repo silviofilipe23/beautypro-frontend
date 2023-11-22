@@ -1,15 +1,15 @@
 <section id="serviceList">
   <div class="row">
-    <div class="col-md-12 mt-2 mt-md-4">
+    <div class="col-md-12 mt-2 mt-md-2">
       <h1>Lista de Agendamentos</h1>
     </div>
   </div>
 
   <div class="row">
-    <div class="col-md-12 my-1 my-md-3">
+    <div class="col-md-12 my-1">
       <form [formGroup]="form">
         <div class="row">
-          <div class="col-md-8 col-lg-4 py-1 py-md-3">
+          <div class="col-md-8 col-lg-4 py-1">
             <mat-form-field appearance="outline" style="width: 100%">
               <mat-label>Dia do Atendimento</mat-label>
               <input
@@ -24,7 +24,7 @@
               <mat-datepicker touchUi #picker></mat-datepicker>
             </mat-form-field>
           </div>
-          <div class="col-md-2 pt-1 pt-md-3">
+          <div class="col-md-2 pt-1">
             <button
               mat-raised-button
               class="d-md-none form-control"
@@ -49,7 +49,7 @@
           </div>
 
           <div
-            class="col-md-2 col-lg-6 py-1 py-md-3 text-end py-3 d-flex align-items-end flex-column"
+            class="col-md-2 col-lg-6 py-1 text-end d-flex align-items-end flex-column"
           >
             <a
               mat-raised-button
@@ -76,16 +76,18 @@
   </div>
 
   <div class="row">
-    <div class="col-md-12 my-3" *ngFor="let item of listServices">
+    <div class="col-md-12 my-1" *ngFor="let item of listServices">
       <mat-card color="primary">
         <mat-card-subtitle>
-          {{ item.servicing!.description! }} ( {{ item.user.name }} )
+          {{ item.servicing!.description! }}
+        </mat-card-subtitle>
+        <mat-card-subtitle>
+          {{ item.user.name }}
         </mat-card-subtitle>
         <mat-card-title class="d-flex justify-content-between">
           {{ item.client!.name }}
           <span class="text-end">
-            {{ item.dateHour | date : "HH:mm" : "GMT-6" }} -
-            {{ item.endDate | date : "HH:mm" : "GMT-6" }}
+            {{ item.dateHour | date : "HH:mm" : "GMT-6" }}
           </span>
         </mat-card-title>
 

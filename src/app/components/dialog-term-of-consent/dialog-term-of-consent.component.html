@@ -94,29 +94,39 @@
 
   <p>Em: {{ appointment.dateHour | date : "dd/MM/YYYY" }}</p>
 
-  <app-signature-area
-    (base64)="getBase64($event)"
-    [showButtons]="showButtonsSignature"
-  ></app-signature-area>
-</mat-dialog-content>
+  <canvas #canvasElement></canvas>
+  <div class="col-md-12 my-1">
+    <button
+      mat-raised-button
+      color="accent"
+      (click)="clearCanvas()"
+      class="me-3"
+    >
+      Limpar
+    </button>
+    <button mat-raised-button color="primary" (click)="createBase64()">
+      Salvar Assinatura
+    </button>
+  </div>
 
-<mat-dialog-actions align="end">
-  <button
-    mat-raised-button
-    mat-dialog-close
-    color="accent"
-    [routerLink]="['/service-list']"
-  >
-    Cancelar
-  </button>
-  <button
-    mat-raised-button
-    [mat-dialog-close]="true"
-    color="primary"
-    cdkFocusInitial
-    *ngIf="showButtonsSignature === false"
-    (click)="closeModal()"
-  >
-    Finalizar
-  </button>
-</mat-dialog-actions>
+  <mat-dialog-actions align="end">
+    <button
+      mat-raised-button
+      mat-dialog-close
+      color="accent"
+      [routerLink]="['/service-list']"
+    >
+      Cancelar
+    </button>
+    <button
+      mat-raised-button
+      [mat-dialog-close]="true"
+      color="primary"
+      cdkFocusInitial
+      *ngIf="showButtonsSignature === false"
+      (click)="closeModal()"
+    >
+      Finalizar
+    </button>
+  </mat-dialog-actions>
+</mat-dialog-content>

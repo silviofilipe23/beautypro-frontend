@@ -53,7 +53,7 @@
       </div>
 
       <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-3">
           <mat-form-field appearance="outline" style="width: 100%">
             <mat-label>Telefone</mat-label>
             <input
@@ -71,7 +71,20 @@
           </mat-form-field>
         </div>
 
-        <div class="col-md-4">
+        <div class="col-md-3">
+          <mat-form-field appearance="outline" style="width: 100%">
+            <mat-label>Role</mat-label>
+            <mat-select formControlName="roles">
+              <mat-option value="ROLE_ADMIN"> Administrador </mat-option>
+              <mat-option value="ROLE_USER"> Usuário </mat-option>
+            </mat-select>
+            <mat-error *ngIf="userForm.controls['roles'].hasError('required')">
+              Role é obrigatório
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-3">
           <mat-form-field appearance="outline" style="width: 100%">
             <mat-label>Username</mat-label>
             <input
@@ -88,7 +101,7 @@
           </mat-form-field>
         </div>
 
-        <div class="col-md-4" *ngIf="!editObject">
+        <div class="col-md-3" *ngIf="!editObject">
           <mat-form-field appearance="outline" style="width: 100%">
             <mat-label>Senha Temporária</mat-label>
             <input

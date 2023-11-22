@@ -103,6 +103,8 @@
               placeholder="Digite nome do serviço"
               formControlName="servicing"
               [matAutocomplete]="auto1"
+              name="servicing"
+              autocomplete="off"
             />
             <mat-autocomplete
               (optionSelected)="selectServicing($event)"

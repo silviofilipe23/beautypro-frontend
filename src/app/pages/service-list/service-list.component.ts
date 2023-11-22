@@ -66,12 +66,9 @@ export class ServiceListComponent implements OnInit, AfterViewInit {
 
     const todayStart = new Date();
     todayStart.setHours(0, 0, 0, 0);
-    // todayStart.setDate(25);
 
     const todayEnd = new Date();
     todayEnd.setHours(23, 59, 0, 0);
-    // todayEnd.setDate(25);
-    // console.log(todayEnd.toLocaleString());
 
     this.paginator.pageIndex = 0;
     merge(this.paginator.page)

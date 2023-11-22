@@ -1,0 +1,43 @@
+canvas {
+  border: 1px solid black;
+  border-radius: 5px;
+}
+
+.desktop {
+  display: block;
+}
+.tablet {
+  display: none;
+}
+.mobile {
+  display: none;
+}
+
+@media screen and (max-width: 834px) {
+  .desktop {
+    display: none;
+  }
+  .tablet {
+    display: block;
+  }
+  .mobile {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 428px) {
+  .desktop {
+    display: none;
+  }
+  .tablet {
+    display: none;
+  }
+  .mobile {
+    display: block;
+  }
+
+  canvas {
+    width: 100%;
+    overflow: hidden;
+  }
+}

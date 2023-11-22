@@ -19,23 +19,6 @@
     mat-card {
       background-color: #f8da8a;
     }
-
-    // .cdk-column-actions {
-    //   width: 104px;
-    //   max-width: 104px;
-    // }
-    // .cdk-column-cpf {
-    //   width: 120px;
-    //   max-width: 120px;
-    // }
-    // .cdk-column-rg {
-    //   width: 120px;
-    //   max-width: 120px;
-    // }
-    // .cdk-column-phoneNumber {
-    //   width: 120px;
-    //   max-width: 120px;
-    // }
   }
 
   .example-container {
@@ -97,6 +80,12 @@
       justify-content: flex-start;
       flex-direction: column;
     }
+
+    // .mat-card-title {
+    //   .text-end {
+    //     font-size: 18px;
+    //   }
+    // }
 
     .mat-card-actions .mat-button,
     .mat-card-actions .mat-raised-button,
