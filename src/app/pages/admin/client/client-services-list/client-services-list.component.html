@@ -1,0 +1,95 @@
+<section id="clientServiceList">
+  <div class="row">
+    <div class="col-md-12 mt-2 mt-md-4">
+      <h1>{{ client.name }}</h1>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12 example-container">
+      <mat-table #table [dataSource]="dataSource" [class.isMobile]="true">
+        <ng-container matColumnDef="id">
+          <mat-header-cell *matHeaderCellDef>ID</mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            <span class="mobile-label">ID:</span>
+            {{ element.id }}</mat-cell
+          >
+        </ng-container>
+
+        <ng-container matColumnDef="servicing">
+          <mat-header-cell *matHeaderCellDef>Procedimento</mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            <span class="mobile-label">Procedimento:</span>
+            {{ element.servicing.description }}</mat-cell
+          >
+        </ng-container>
+
+        <ng-container matColumnDef="dateHour">
+          <mat-header-cell *matHeaderCellDef>Início</mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            <span class="mobile-label">Início:</span>
+            {{ element.dateHour | date : "dd/MM/YYYY HH:mm" : "GMT-6" }}
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="endDate">
+          <mat-header-cell *matHeaderCellDef>Fim</mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            <span class="mobile-label">Fim:</span
+            >{{
+              element.endDate | date : "dd/MM/YYYY HH:mm" : "GMT-6"
+            }}</mat-cell
+          >
+        </ng-container>
+
+        <ng-container matColumnDef="paymentType">
+          <mat-header-cell *matHeaderCellDef>Tipo de pagamento</mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            <span class="mobile-label">Tipo de pagamento:</span>
+            {{ getPaymentType(element.paymentType) }}
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="price">
+          <mat-header-cell *matHeaderCellDef>Valor</mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            <span class="mobile-label">Valor:</span>
+            {{ element.price }}
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="open">
+          <mat-header-cell *matHeaderCellDef>Status</mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            <span class="mobile-label">Status:</span>
+            {{ getStatus(element) }}
+          </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+      </mat-table>
+      <mat-paginator
+        id="paginator"
+        [pageSizeOptions]="[10, 20, 30, 100]"
+        [pageIndex]="0"
+        [length]="listLength"
+        showFirstLastButtons
+        aria-label="Selecionar Página"
+        (page)="onPaginatorChange($event)"
+      >
+      </mat-paginator>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <button
+        mat-raised-button
+        color="primary"
+        [routerLink]="['/admin/client-list']"
+      >
+        Voltar
+      </button>
+    </div>
+  </div>
+</section>

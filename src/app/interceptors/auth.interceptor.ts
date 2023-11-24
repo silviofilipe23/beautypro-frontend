@@ -7,7 +7,7 @@ import {
   HttpInterceptor,
   HttpErrorResponse,
 } from '@angular/common/http';
-import { catchError, filter, Observable, throwError } from 'rxjs';
+import { catchError, Observable, throwError } from 'rxjs';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
@@ -35,8 +35,8 @@ export class AuthInterceptor implements HttpInterceptor {
             console.log(err);
 
             if (err instanceof HttpErrorResponse) {
-              if (err.status === 401 && this.router.url !== '/login') {
-                this.router.navigate(['/login']);
+              if (err.status === 401 && this.router.url !== '/') {
+                this.router.navigate(['/']);
               }
             }
             return throwError(err);
@@ -46,8 +46,8 @@ export class AuthInterceptor implements HttpInterceptor {
         return next.handle(request).pipe(
           catchError((err) => {
             if (err instanceof HttpErrorResponse) {
-              if (err.status === 401 && this.router.url !== '/login') {
-                this.router.navigate(['/login']);
+              if (err.status === 401 && this.router.url !== '/') {
+                this.router.navigate(['/']);
               }
             }
             return throwError(err);
@@ -58,8 +58,8 @@ export class AuthInterceptor implements HttpInterceptor {
       return next.handle(request).pipe(
         catchError((err) => {
           if (err instanceof HttpErrorResponse) {
-            if (err.status === 401 && this.router.url !== '/login') {
-              this.router.navigate(['/login']);
+            if (err.status === 401 && this.router.url !== '/') {
+              this.router.navigate(['/']);
             }
           }
           return throwError(err);

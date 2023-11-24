@@ -54,6 +54,31 @@ export class ServiceService {
     );
   }
 
+  chartServices() {
+    return this.http.get<any>(`${environment.urlBase}/services/pie-chart`, {
+      observe: 'response',
+    });
+  }
+
+  chartServicings() {
+    return this.http.get<any>(
+      `${environment.urlBase}/services/servicings-chart`,
+      { observe: 'response' }
+    );
+  }
+
+  chartPrice() {
+    return this.http.get<any>(`${environment.urlBase}/services/price-chart`, {
+      observe: 'response',
+    });
+  }
+
+  chartDaily() {
+    return this.http.get<any>(`${environment.urlBase}/services/daily-chart`, {
+      observe: 'response',
+    });
+  }
+
   updateAppointment(id: number, editAppointment: Service) {
     return this.http.put<any>(
       `${environment.urlBase}/services/${id}`,

@@ -1,0 +1,59 @@
+<section id="serviceList">
+  <div class="d-flex flex-row flex-wrap">
+    <div class="p-3">
+      <div class="bg-chart p-3">
+        <apx-chart
+          #chart
+          [series]="chartOptions.series"
+          [chart]="chartOptions.chart"
+          [labels]="chartOptions.labels"
+          [responsive]="chartOptions.responsive"
+          [title]="chartOptions.title"
+        ></apx-chart>
+      </div>
+    </div>
+
+    <div class="p-3">
+      <div class="bg-chart p-3">
+        <apx-chart
+          #chart1
+          [series]="chartOptions2.series"
+          [chart]="chartOptions2.chart"
+          [dataLabels]="chartOptions2.dataLabels"
+          [plotOptions]="chartOptions2.plotOptions"
+          [xaxis]="chartOptions2.xaxis"
+          [title]="chartOptions2.title"
+        ></apx-chart>
+      </div>
+    </div>
+
+    <div class="p-3">
+      <div class="bg-chart p-3">
+        <apx-chart
+          #chart3
+          [series]="chartOptionsDaily.series"
+          [chart]="chartOptionsDaily.chart"
+          [dataLabels]="chartOptionsDaily.dataLabels"
+          [plotOptions]="chartOptionsDaily.plotOptions"
+          [xaxis]="chartOptionsDaily.xaxis"
+          [title]="chartOptionsDaily.title"
+        ></apx-chart>
+      </div>
+    </div>
+
+    <div class="p-3">
+      <div class="bg-chart p-3">
+        <apx-chart
+          #chart2
+          [series]="chartOptionsPrice.series"
+          [chart]="chartOptionsPrice.chart"
+          [xaxis]="chartOptionsPrice.xaxis"
+          [dataLabels]="chartOptionsPrice.dataLabels"
+          [grid]="chartOptionsPrice.grid"
+          [stroke]="chartOptionsPrice.stroke"
+          [title]="chartOptionsPrice.title"
+        ></apx-chart>
+      </div>
+    </div>
+  </div>
+</section>

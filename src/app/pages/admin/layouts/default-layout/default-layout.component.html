@@ -1,0 +1,76 @@
+<mat-drawer-container class="example-container">
+  <mat-drawer #drawer mode="over">
+    <mat-list>
+      <div>
+        <div class="logo-sidenav text-center">
+          <img
+            src="../../../../assets/logo1.png"
+            alt="logo"
+            routerLink="/home"
+          />
+        </div>
+        <div class="mt-3">
+          <mat-list-item
+            *ngFor="let menu of menus"
+            [routerLink]="menu.url"
+            style="cursor: pointer"
+            matRipple
+          >
+            <mat-icon matListItemIcon class="me-3" color="primary">{{
+              menu.icon
+            }}</mat-icon>
+            <div matListItemTitle>{{ menu.name }}</div>
+            <mat-divider></mat-divider>
+          </mat-list-item>
+        </div>
+      </div>
+    </mat-list>
+  </mat-drawer>
+
+  <mat-drawer-content>
+    <mat-toolbar>
+      <img
+        class="logo me-4"
+        src="../../../../assets/logoHome.png"
+        alt="logo"
+        routerLink="/home"
+      />
+      <button
+        (click)="drawer.toggle()"
+        mat-icon-button
+        color="primary"
+        class="example-icon"
+        aria-label="Example icon-button with menu icon"
+      >
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span class="example-spacer"></span>
+      <button
+        mat-icon-button
+        color="primary"
+        class="example-icon favorite-icon"
+        aria-label="Example icon-button with heart icon"
+        [matMenuTriggerFor]="menu"
+      >
+        <mat-icon>account_circle</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item disabled>
+          <mat-icon color="primary" class="material-icons-outlined"
+            >person_outline</mat-icon
+          >
+          <span>{{ user?.username }}</span>
+        </button>
+
+        <button mat-menu-item (click)="logout()">
+          <mat-icon>logout</mat-icon>
+          <span>Sair</span>
+        </button>
+      </mat-menu>
+    </mat-toolbar>
+    <div class="container pt-4 pb-5">
+      <!-- <app-signature-area></app-signature-area> -->
+      <router-outlet></router-outlet>
+    </div>
+  </mat-drawer-content>
+</mat-drawer-container>

@@ -1,0 +1,183 @@
+<section id="serviceCreate">
+  <div class="row">
+    <div class="col-md-12 mt-4">
+      <h1
+        [innerHtml]="
+          editObject ? 'Editar Atendimento' : 'Cadastrar Atendimento'
+        "
+      ></h1>
+    </div>
+  </div>
+
+  <div class="row my-3">
+    <form [formGroup]="serviceForm" (ngSubmit)="createService()">
+      <div class="row">
+        <div class="col-md-6 col-lg-4 py-1 py-md-3">
+          <mat-form-field appearance="outline" style="width: 100%">
+            <mat-label>Data do Atendimento</mat-label>
+            <input
+              matInput
+              [matDatepicker]="picker"
+              formControlName="dateHour"
+              [min]="todayDate"
+              (dateChange)="getAvailableTime()"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="picker"
+            ></mat-datepicker-toggle>
+            <mat-datepicker touchUi #picker></mat-datepicker>
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-6 col-lg-4 py-1 py-md-3">
+          <mat-form-field appearance="outline" style="width: 100%">
+            <mat-label>Horário Disponível</mat-label>
+            <mat-select
+              formControlName="appointmentTime"
+              [disabled]="availableTime.length === 0"
+            >
+              <mat-option value="1" *ngIf="availableTime.includes(1)">
+                08:00 - 10:00
+              </mat-option>
+              <mat-option value="2" *ngIf="availableTime.includes(2)">
+                10:00 - 12:00
+              </mat-option>
+              <mat-option value="3" *ngIf="availableTime.includes(3)">
+                12:00 - 14:00
+              </mat-option>
+              <mat-option value="4" *ngIf="availableTime.includes(4)">
+                14:00 - 16:00
+              </mat-option>
+              <mat-option value="5" *ngIf="availableTime.includes(5)">
+                16:00 - 18:00
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <mat-form-field appearance="outline" style="width: 100%">
+            <mat-label>Cliente</mat-label>
+            <input
+              matInput
+              type="text"
+              maxlength="255"
+              placeholder="Digite nome do cliente"
+              formControlName="client"
+              [matAutocomplete]="auto"
+            />
+            <mat-autocomplete
+              (optionSelected)="selectClient($event)"
+              autoActiveFirstOption
+              #auto="matAutocomplete"
+              [displayWith]="displayFn"
+            >
+              <mat-option
+                *ngFor="let option of filteredOptions | async"
+                [value]="option"
+              >
+                {{ option.name }}
+              </mat-option>
+            </mat-autocomplete>
+
+            <mat-error
+              *ngIf="serviceForm?.controls['client'].hasError('required')"
+            >
+              Cliente é obrigatório
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <mat-form-field appearance="outline" style="width: 100%">
+            <mat-label>Serviço</mat-label>
+            <input
+              matInput
+              type="text"
+              maxlength="255"
+              placeholder="Digite nome do serviço"
+              formControlName="servicing"
+              [matAutocomplete]="auto1"
+              name="servicing"
+              autocomplete="off"
+            />
+            <mat-autocomplete
+              (optionSelected)="selectServicing($event)"
+              autoActiveFirstOption
+              #auto1="matAutocomplete"
+              [displayWith]="displayServicing"
+            >
+              <mat-option
+                *ngFor="let option of filteredOptionsServicing | async"
+                [value]="option"
+              >
+                {{ option.description }}
+              </mat-option>
+            </mat-autocomplete>
+
+            <mat-error
+              *ngIf="serviceForm?.controls['servicing'].hasError('required')"
+            >
+              Serviço é obrigatório
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-6">
+          <mat-form-field appearance="outline" style="width: 100%">
+            <mat-label>Profissional</mat-label>
+            <mat-select formControlName="user" [compareWith]="compareObjects">
+              <mat-option *ngFor="let option of listUsers" [value]="option">
+                {{ option.name }}
+              </mat-option>
+            </mat-select>
+
+            <mat-error
+              *ngIf="serviceForm?.controls['user'].hasError('required')"
+            >
+              Profissional é obrigatório
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <mat-form-field appearance="outline" style="width: 100%">
+            <mat-label>Observações</mat-label>
+            <textarea
+              formControlName="observations"
+              matInput
+              placeholder="Anotações gerais..."
+            ></textarea>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row mt-3">
+        <div class="col-md-6 col-12 text-end actions-buttons mb-md-0 mb-3">
+          <button
+            mat-raised-button
+            type="button"
+            color="warn"
+            class="me-sm-3 me-0"
+            routerLink="/admin/service-list"
+          >
+            Cancelar
+          </button>
+        </div>
+
+        <div class="col-md-6 col-12 text-md-start actions-buttons">
+          <button mat-raised-button color="primary" type="submit">
+            Salvar
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</section>
