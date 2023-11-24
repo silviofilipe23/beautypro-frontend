@@ -40,14 +40,11 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatCardModule } from '@angular/material/card';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { ResetPasswordComponent } from './pages/admin/auth/reset-password/reset-password.component';
 import {
   MatMomentDateModule,
   MomentDateAdapter,
 } from '@angular/material-moment-adapter';
 import { getBrPaginatorIntl } from './portuguese-paginator-intl';
-import { DialogCancelComponent } from './components/dialog-cancel/dialog-cancel.component';
-import { DialogTermOfConsentComponent } from './components/dialog-term-of-consent/dialog-term-of-consent.component';
 import { SharedModule } from './shared/shared.module';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { SiteLayoutComponent } from './pages/layouts/site-layout/site-layout.component';
@@ -65,48 +62,14 @@ export const MY_FORMATS: MatDateFormats = {
 };
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    DialogCancelComponent,
-    DialogTermOfConsentComponent,
-    SiteLayoutComponent,
-  ],
+  declarations: [AppComponent, SiteLayoutComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatIconModule,
-    MatButtonModule,
-    BlockUIModule,
-    FormsModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-    MatSnackBarModule,
     BlockUIModule.forRoot(),
-    MatSidenavModule,
-    MatToolbarModule,
-    MatMenuModule,
-    MatExpansionModule,
-    MatDividerModule,
-    MatListModule,
-    MatRippleModule,
-    MatSelectModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    MatMomentDateModule,
-    MatDialogModule,
-    MatTableModule,
-    MatPaginatorModule,
-    MatSlideToggleModule,
-    MatTooltipModule,
-    MatAutocompleteModule,
-    MatChipsModule,
-    MatCardModule,
-    SharedModule,
-    MatCheckboxModule,
-    NgApexchartsModule,
+    BlockUIModule,
+    HttpClientModule,
+    BrowserAnimationsModule,
   ],
   providers: [
     {

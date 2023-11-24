@@ -51,8 +51,9 @@ import { SupplierListComponent } from './supplier/supplier-list/supplier-list.co
 import { UserCreateComponent } from './user/user-create/user-create.component';
 import { UserListComponent } from './user/user-list/user-list.component';
 import { UsersComponent } from './user/users/users.component';
-import { AddProductDialogComponent } from 'src/app/components/add-product-dialog/add-product-dialog.component';
 import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
+import { DialogCancelComponent } from 'src/app/components/dialog-cancel/dialog-cancel.component';
+import { DialogTermOfConsentComponent } from 'src/app/components/dialog-term-of-consent/dialog-term-of-consent.component';
 
 @NgModule({
   declarations: [
@@ -76,8 +77,9 @@ import { ResetPasswordComponent } from './auth/reset-password/reset-password.com
     UserCreateComponent,
     UserListComponent,
     UsersComponent,
-    AddProductDialogComponent,
     ResetPasswordComponent,
+    DialogCancelComponent,
+    DialogTermOfConsentComponent,
   ],
   imports: [
     CommonModule,

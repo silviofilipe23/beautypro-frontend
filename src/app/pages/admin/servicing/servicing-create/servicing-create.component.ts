@@ -1,4 +1,4 @@
-import { User, UserResponse } from 'src/app/models/User';
+import { UserResponse } from 'src/app/models/User';
 import { UnitOfMeasure } from '../../../../models/UnitOfMeasure';
 import { HttpResponse } from '@angular/common/http';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
@@ -21,18 +21,14 @@ import {
   ViewChild,
   ElementRef,
 } from '@angular/core';
-import { UnitOfMeasureService } from 'src/app/services/unitOfMeasure/unit-of-measure.service';
 import { Servicing } from 'src/app/models/Servicing';
 import { Supplier } from 'src/app/models/Supplier';
-import { map, startWith, switchMap } from 'rxjs/operators';
-import { SupplierService } from 'src/app/services/supplier/supplier.service';
+import { map, startWith } from 'rxjs/operators';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { ServicingService } from 'src/app/services/servicing/servicing.service';
 import { Observable } from 'rxjs';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { UserService } from 'src/app/services/user/user.service';
-import { ProductService } from 'src/app/services/product/product.service';
-import { AddProductDialogComponent } from 'src/app/components/add-product-dialog/add-product-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ConsumedProducts } from 'src/app/models/ConsumedProducts';
 
@@ -149,18 +145,6 @@ export class ServicingCreateComponent implements OnInit, AfterContentInit {
   ngOnInit(): void {
     this.getAllProfessionals();
     this.getListProfessionals();
-  }
-
-  public openInfoDialog() {
-    const dialogRef = this.dialog.open(AddProductDialogComponent, {
-      width: '544px',
-      disableClose: true,
-      autoFocus: false,
-    });
-
-    dialogRef.afterClosed().subscribe((_result: any) => {
-      console.log(_result);
-    });
   }
 
   getListProfessionals() {
