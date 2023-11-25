@@ -1,0 +1,17 @@
+.carousel {
+}
+
+.carousel-inner {
+  height: 90vh;
+}
+
+.carousel-indicators {
+  button {
+    width: 70px;
+    height: 6px;
+  }
+
+  .active {
+    background-color: #fa9703;
+  }
+}

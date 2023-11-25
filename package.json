@@ -24,6 +24,7 @@
     "apexcharts": "^3.44.0",
     "bootstrap": "^5.2.3",
     "jquery": "^3.6.4",
+    "lightgallery": "^2.7.2",
     "moment": "^2.29.4",
     "ng-apexcharts": "^1.8.0",
     "ng-block-ui": "^3.0.2",

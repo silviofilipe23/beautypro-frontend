@@ -1,0 +1,25 @@
+#navbarTop {
+  .navbar {
+    height: 10vh;
+    transition: height 0.5s;
+    background-color: #927673;
+  }
+
+  .navbar-collapsed {
+    height: 6vh;
+  }
+
+  .active {
+    color: #ffbb56 !important;
+  }
+
+  .nav-item {
+    .nav-link {
+      color: #fff;
+      font-size: 18px;
+      &:hover {
+        color: #ffbb56;
+      }
+    }
+  }
+}
