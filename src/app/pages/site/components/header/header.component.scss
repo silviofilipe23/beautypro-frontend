@@ -4,9 +4,13 @@
     transition: height 0.5s;
     background-color: #927673;
   }
+  .navbar-brand img{
+    height: 4vh;
+  }
 
   .navbar-collapsed {
     height: 6vh;
+    background-color: #927673;
   }
 
   .active {
@@ -22,4 +26,44 @@
       }
     }
   }
+
+  @media screen and (max-width: 834px) {
+    .navbar-toggler {
+      border: none
+    }
+    .navbar-nav {
+      flex-direction: row;
+      margin-bottom: 0;
+    }
+
+    .nav-item {
+      .nav-link {
+        color: #fff;
+        font-size: 13px;
+        &:hover {
+          color: #ffbb56;
+        }
+      }
+    }
+    
+  }
+
+  @media screen and (max-width: 768px) {
+    .navbar-toggler {
+      border: none
+    }
+    .navbar-nav {
+      flex-direction: row;
+      margin-bottom: 0;
+    }
+
+    .nav-item {
+      .nav-link {
+        padding: 0px 10px;
+      }
+    }
+    
+  }
+
+  
 }

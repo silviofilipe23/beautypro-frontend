@@ -23,7 +23,7 @@ export class WhatsappComponent implements OnInit {
   }
 
   whatsapp() {
-    window.open('https://api.whatsapp.com/send/?phone=555192263846', '_new');
+    window.open('https://api.whatsapp.com/send/?phone=556298076727', '_new');
   }
 
   openSesiModal() {

@@ -20,4 +20,31 @@
       color: #352a29;
     }
   }
+
+  @media screen and (max-width: 834px) {
+
+    .text {
+      margin-top: 50px;
+
+      
+    }
+    
+  }
+
+  @media screen and (max-width: 430px) {
+
+    .text {
+      margin-top: 50px;
+
+      h1 {
+        font-size: 40px;
+      }
+  
+      p {
+        line-height: 23px;
+        font-size: 17px;
+      }
+    }
+    
+  }
 }

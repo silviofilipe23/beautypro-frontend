@@ -12,6 +12,8 @@ import { GaleryComponent } from './components/galery/galery.component';
 import { WhatsappComponent } from './components/whatsapp/whatsapp.component';
 import { AboutComponent } from './components/about/about.component';
 import { ScrollSpyDirective } from './directive/scroll-spy.directive';
+import { ServicingsComponent } from './components/servicings/servicings.component';
+import {MatIconModule} from '@angular/material/icon'
 
 @NgModule({
   declarations: [
@@ -24,7 +26,8 @@ import { ScrollSpyDirective } from './directive/scroll-spy.directive';
     WhatsappComponent,
     AboutComponent,
     ScrollSpyDirective,
+    ServicingsComponent,
   ],
-  imports: [CommonModule, SiteRoutingModule, LightgalleryModule],
+  imports: [CommonModule, SiteRoutingModule, LightgalleryModule, MatIconModule],
 })
 export class SiteModule {}
