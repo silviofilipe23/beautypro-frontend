@@ -1,7 +1,7 @@
 <section id="home">
   <div
     id="carouselExampleCaptions"
-    class="carousel slide"
+    class="carousel slide d-lg-block d-none"
     data-bs-ride="carousel"
   >
     <div class="carousel-indicators">
@@ -67,5 +67,112 @@
       <span class="carousel-control-next-icon" aria-hidden="true"></span>
       <span class="visually-hidden">Next</span>
     </button>
+  </div>
+
+  <!-- tablet -->
+  <div
+    id="carouselExampleCaptionsTablet"
+    class="carousel slide d-none d-md-block d-lg-none"
+    data-bs-ride="carousel"
+  >
+    <div class="carousel-indicators">
+      <button
+        type="button"
+        data-bs-target="#carouselExampleCaptionsTablet"
+        data-bs-slide-to="0"
+        class="active"
+        aria-current="true"
+        aria-label="Slide 1"
+      ></button>
+      <button
+        type="button"
+        data-bs-target="#carouselExampleCaptionsTablet"
+        data-bs-slide-to="1"
+        aria-label="Slide 2"
+      ></button>
+      <button
+        type="button"
+        data-bs-target="#carouselExampleCaptionsTablet"
+        data-bs-slide-to="2"
+        aria-label="Slide 3"
+      ></button>
+    </div>
+    <div class="carousel-inner">
+      <div class="carousel-item active" data-bs-interval="3000">
+        <img
+          src="../../../../../assets/banner1-tablet.png"
+          class="d-block w-100"
+          alt="..."
+        />
+      </div>
+      <div class="carousel-item" data-bs-interval="3000">
+        <img
+          src="../../../../../assets/banner2-tablet.png"
+          class="d-block w-100"
+          alt="..."
+        />
+      </div>
+      <div class="carousel-item" data-bs-interval="3000">
+        <img
+          src="../../../../../assets/banner3-tablet.png"
+          class="d-block w-100"
+          alt="..."
+        />
+      </div>
+    </div>    
+  </div>
+
+  <!-- mobile -->
+  <div
+    id="carouselExampleCaptionsMobile"
+    class="carousel slide d-block d-md-none"
+    data-bs-ride="carousel"
+  >
+    <div class="carousel-indicators">
+      <button
+        type="button"
+        data-bs-target="#carouselExampleCaptionsMobile"
+        data-bs-slide-to="0"
+        class="active"
+        aria-current="true"
+        aria-label="Slide 1"
+      ></button>
+      <button
+        type="button"
+        data-bs-target="#carouselExampleCaptionsMobile"
+        data-bs-slide-to="1"
+        aria-label="Slide 2"
+      ></button>
+      <button
+        type="button"
+        data-bs-target="#carouselExampleCaptionsMobile"
+        data-bs-slide-to="2"
+        aria-label="Slide 3"
+      ></button>
+    </div>
+    <div class="carousel-inner">
+      <div class="carousel-item active" data-bs-interval="3000">
+        <img
+          src="../../../../../assets/banner1-mobile.png"
+          class="d-block w-100"
+          alt="..."
+        />
+      </div>
+      <div class="carousel-item" data-bs-interval="3000">
+        <img
+          src="../../../../../assets/banner2-mobile.png"
+          class="d-block w-100"
+          alt="..."
+        />
+      </div>
+      <div class="carousel-item" data-bs-interval="3000">
+        <img
+          src="../../../../../assets/banner3-mobile.png"
+          class="d-block w-100"
+          alt="..."
+        />
+      </div>
+    </div>
+    
   </div>
 </section>
