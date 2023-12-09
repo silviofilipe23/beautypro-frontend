@@ -7,6 +7,8 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class UserService {
+  private readonly USER_ROLE_KEY = 'USER_ROLES';
+
   constructor(private http: HttpClient) {}
 
   createUser(newUser: User) {
@@ -39,5 +41,11 @@ export class UserService {
         (active !== null ? `&active=${active}` : ''),
       { observe: 'response' }
     );
+  }
+
+  getUserRole(): string[] | null {
+    const roles = JSON.parse(localStorage.getItem(this.USER_ROLE_KEY));
+    console.log(roles);
+    return roles;
   }
 }

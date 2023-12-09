@@ -10,8 +10,9 @@
           />
         </div>
         <div class="mt-3">
-          <mat-list-item
-            *ngFor="let menu of menus"
+          <div *ngFor="let menu of menus">
+            <mat-list-item
+            *ngIf="menu.show"
             [routerLink]="menu.url"
             style="cursor: pointer"
             matRipple
@@ -22,11 +23,12 @@
             <div matListItemTitle>{{ menu.name }}</div>
             <mat-divider></mat-divider>
           </mat-list-item>
+          </div>
         </div>
       </div>
     </mat-list>
   </mat-drawer>
-
+  
   <mat-drawer-content>
     <mat-toolbar>
       <img

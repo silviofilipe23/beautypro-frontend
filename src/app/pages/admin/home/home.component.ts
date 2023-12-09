@@ -194,10 +194,10 @@ export class HomeComponent implements OnInit {
       },
       responsive: [
         {
-          breakpoint: 480,
+          breakpoint: 769,
           options: {
             chart: {
-              width: 150,
+              width: 380,
             },
             legend: {
               position: 'bottom',

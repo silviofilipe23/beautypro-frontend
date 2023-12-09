@@ -6,7 +6,9 @@
 }
 
 #chart {
-  width: 70%;
+  max-width: 380px;
+  margin: 35px auto;
+  padding: 0;
 }
 
 #chart1 {
@@ -23,4 +25,13 @@
   max-width: 380px;
   margin: 35px auto;
   padding: 0;
+}
+
+@media screen and (max-width: 430px) {
+  .bg-chart {
+    background-color: #fff;
+    border-radius: 10px;
+    width: auto;
+    height: 370px;
+  }
 }

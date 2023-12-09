@@ -104,6 +104,7 @@
       color="accent"
       [routerLink]="['/admin/service-list']"
       class="me-1"
+      *ngIf="showButtonsSignature === true"
     >
       Cancelar
     </button>
@@ -112,10 +113,11 @@
       color="accent"
       (click)="clearCanvas()"
       class="me-1"
+      *ngIf="showButtonsSignature === true"
     >
       Limpar
     </button>
-    <button mat-raised-button color="primary" (click)="createBase64()">
+    <button mat-raised-button color="primary" (click)="createBase64()" *ngIf="showButtonsSignature === true">
       Salvar Assinatura
     </button>
 
